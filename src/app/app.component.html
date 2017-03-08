@@ -1,0 +1,199 @@
+<!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+<div class="appContainer" [ngClass]="{'site-menubar-open': sideMenuOpen}">
+  <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left" [ngClass]="{'hided': !sideMenuOpen}"
+        (click)="toggleMobileSideMenu()" data-toggle="menubar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="hamburger-bar"></span>
+        </button>
+        <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
+          <img class="navbar-brand-logo" src="../assets/images/logo.png" title="Remark">
+          <span class="navbar-brand-text hidden-xs-down"> Remark</span>
+        </div>
+    </div>
+    <div class="navbar-container container-fluid">
+      <!-- Navbar Collapse -->
+      <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+        <!-- Navbar Toolbar -->
+        <ul class="nav navbar-toolbar">
+          <!--<li class="nav-item">
+            <a [routerLink]="['timeline']" class="nav-link" aria-expanded="false" role="button">Timeline</a>
+          </li>-->
+          <li *ngIf="currentUser" class="nav-item">
+            <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#vulgeModal">
+              <i class="icon fa-pencil-square-o" aria-hidden="true"></i>
+              Write a Vulge
+            </button>
+          </li>
+        </ul>
+        <!-- End Navbar Toolbar -->
+        <!-- Navbar Toolbar Right -->
+        <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+          <li *ngIf="currentUser" class="nav-item dropdown">
+            <button type="button" class="nav-link btn btn-link" data-toggle="dropdown" aria-expanded="false">
+              <i class="icon fa-thumbs-o-up" aria-hidden="true"></i>
+              <span class="tag tag-pill tag-info up vote-pill">{{(profile | async)?.votes}}</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
+              <div class="dropdown-menu-header" role="presentation">
+                <h5>VOTES REMAINING:</h5>
+                <span class="tag tag-round tag-info">{{(profile | async)?.votes}}</span>
+              </div>
+              <div class="list-group" role="presentation">
+                <div data-role="container">
+                  <div data-role="content">
+                    <div *ngFor="let record of currentUserVotes | async | userVoteFilter" class="list-group-item dropdown-item" role="menuitem">
+                      <div class="media">
+                        <div class="media-left p-r-10">
+                          <span class="avatar avatar-sm avatar-online">
+                            <img src="../../global/portraits/2.jpg" alt="..." />
+                            <i></i>
+                          </span>
+                        </div>
+                        <div class="media-body">
+                          <h6 class="media-heading">{{record.vulgeUserName}}</h6>
+                          <div class="voteIcons">
+                            <i *ngFor="let upIcon of helperService.getArrayOfNLenth(record.numUpVotes || 0)" class="icon fa-thumbs-o-up" aria-hidden="true"></i>
+                            <i *ngFor="let downIcon of helperService.getArrayOfNLenth(record.numDownVotes || 0)" class="icon fa-thumbs-o-down" aria-hidden="true"></i>
+                          </div>
+                          <div class="media-meta">
+                            <time>{{record.occured}}</time>
+                          </div>
+                          <div class="media-detail">{{record.vulgeText}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown-menu-footer" role="presentation">
+              </div>
+            </div>
+          </li>
+          <li *ngIf="currentUser" class="nav-item dropdown notificationMenuItem">
+            <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" title="Notifications" aria-expanded="false" data-animation="scale-up"
+              role="button">
+              <i class="icon md-notifications" aria-hidden="true"></i>
+              <span class="tag tag-pill tag-danger up">{{(currentUserNotifications | async | notificationFilter)?.length}}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
+                <div class="dropdown-menu-header">
+                  <h5>NOTIFICATIONS</h5>
+                  <span class="tag tag-round tag-danger">New {{(currentUserNotifications | async | notificationFilter)?.length}}</span>
+                </div>
+                <div class="list-group">
+                  <div data-role="container">
+                    <div data-role="content">
+                      <div *ngFor="let notification of (currentUserNotifications | async | notificationFilter)" (click)="markNotificationsRead(notification.type)" class="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                        <div class="media">
+                          <div class="media-left p-r-10">
+                            <i [ngClass]="notification.getNotificationClass()" class="icon white icon-circle" aria-hidden="true"></i>
+                          </div>
+                          <div class="media-body">
+                            <h6 class="media-heading">{{notification.message}}</h6>
+                            <time class="media-meta">{{notification.occured}}</time>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dropdown-menu-footer">
+                </div>
+              </div>
+          </li>
+          <li *ngIf="currentUser" class="nav-item dropdown">
+            <button type="button" data-toggle="dropdown" aria-expanded="false" class="nav-link btn btn-link">
+              {{currentUser.email}}
+              <i class="icon md-chevron-down" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-menu" role="menu">
+              <a class="dropdown-item" [routerLink]="['profile']" role="menuitem"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
+              <div class="dropdown-divider"></div>
+              <button (click)="logout()" role="menuitem" type="button" class="dropdown-item btn btn-link pull-right"><i class="icon md-power" aria-hidden="true"></i> Logout</button>
+            </div>
+          </li>
+
+        </ul>
+
+        <!-- End Navbar Toolbar Right -->
+        <div class="navbar-brand navbar-brand-center">
+          <a [routerLink]="['']">
+            <img class="navbar-brand-logo" src="../assets/images/logo.png" title="Remark">
+          </a>
+        </div>
+        <button *ngIf="!currentUser" type="button" class="loginButton btn btn-link navbar-right navbar-btn" data-toggle="modal" data-target="#loginModal">
+          Have an account? Login
+        </button>
+      </div>
+      <!-- End Navbar Collapse -->
+    </div>
+  </nav>
+  <div class="site-menubar">
+    <div class="site-menubar-header">
+      <div class="cover overlay">
+        <img class="cover-image" src="../../assets//examples/images/dashboard-header.jpg" alt="...">
+        <div class="overlay-panel vertical-align overlay-background">
+          <div class="vertical-align-middle">
+            <a class="avatar avatar-lg" href="javascript:void(0)">
+              <img src="../../../global/portraits/1.jpg" alt="">
+            </a>
+            <div class="site-menubar-info">
+              <h5 class="site-menubar-user">Machi</h5>
+              <p class="site-menubar-email">machidesign@gmail.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="site-menubar-body">
+      <div>
+        <div>
+          <ul class="site-menu" data-plugin="menu">
+            <li class="site-menu-item">
+              <a class="animsition-link" href="../index.html">
+                <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                <span class="site-menu-title">Dashboard</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+</div>
+<!-- Footer -->
+<footer class="site-footer appFooter">
+  <div class="site-footer-legal">© 2017 <a href="http://themeforest.net/item/remark-responsive-bootstrap-admin-template/11989202">Remark</a></div>
+  <div class="site-footer-right">
+    <a [routerLink]="['about']">About</a> Crafted with <i class="red-600 icon md-favorite"></i> by <a href="http://themeforest.net/user/amazingSurge">amazingSurge</a>
+  </div>
+</footer>
+<!-- Login Modal -->
+<div *ngIf="!currentUser" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body page-login-main">
+        <login></login>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- Vulge Modal -->
+  <div *ngIf="currentUser" class="modal fade" id="vulgeModal" tabindex="-1" role="dialog" aria-labelledby="vulgeModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body page-login-main">
+          <create-vulge></create-vulge>
+        </div>
+      </div>
+    </div>
+  </div>

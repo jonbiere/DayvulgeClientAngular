@@ -1,0 +1,93 @@
+<div *ngIf="!showRegister && !showPasswordReset" [ngClass]="{'spinnerActive': showSpinner}" class="loginForm">
+    <spinner *ngIf="showSpinner" class="loginSpinner"></spinner>
+    <h3 class="font-size-24">Sign In</h3>
+    <form (ngSubmit)="login('email');$event.preventDefault();" #loginForm="ngForm" autocomplete="off">
+        <div class="form-group form-material floating">
+            <input type="email" [ngClass]="{'empty': !loginModel.email}" [(ngModel)]="loginModel.email" required class="form-control"
+                id="inputEmail" name="email">
+                <label class="floating-label" for="inputEmail">Email</label>
+        </div>
+        <div class="form-group form-material floating">
+            <input type="password" [ngClass]="{'empty': !loginModel.password}" [(ngModel)]="loginModel.password" required class="form-control"
+                id="inputPassword" name="password">
+                <label class="floating-label" for="inputPassword">Password</label>
+        </div>
+        <div class="form-group clearfix">
+            <div class="checkbox-custom checkbox-inline checkbox-primary pull-left">
+                <input type="checkbox" id="remember" name="checkbox">
+                <label for="inputCheckbox">Remember me</label>
+            </div>
+            <button (click)="togglePasswordReset(true)"  type="button" class="btn btn-link pull-right">Forgot password?</button>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+    </form>
+    <small *ngIf="errorMessage" class="text-danger">
+        The username or password is incorrect.
+    </small>
+    <hr class="hr-text" data-content="OR">
+    <div class="social row">
+        <div class="col-sm-6">
+            <button (click)="login('facebook')" type="button" class="btn btn-tagged social-facebook">
+                        <span class="btn-tag"><i class="icon bd-facebook" aria-hidden="true"></i></span><span class="btn-content">Sign in with Facebook</span>
+            </button>
+        </div>
+        <div class="col-sm-6">
+            <button (click)="login('google')" type="button" class="btn btn-tagged social-google-plus">
+                        <span class="btn-tag"><i class="icon bd-google-plus" aria-hidden="true"></i></span><span class="btn-content">Sign in with Google</span>
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <p class="registerText">Don't have an account?  <button (click)="toggleRegister(true)" type="button" class="btn btn-link">Sign Up</button></p>
+</div>
+<div *ngIf="showRegister && !showPasswordReset" [ngClass]="{'spinnerActive': showSpinner}" class="loginForm">
+    <spinner *ngIf="showSpinner" class="loginSpinner"></spinner>
+    <h3 class="font-size-24">Sign Up</h3>
+    <form (ngSubmit)="registerAccount($event);" #registerForm="ngForm" autocomplete="off">
+        <div class="form-group form-material floating">
+            <input type="email" [ngClass]="{'empty': !registerModel.email}" [(ngModel)]="registerModel.email" #email="ngModel" required class="form-control"
+                id="inputEmail" name="email" >
+                <label class="floating-label" for="inputEmail">Email</label>
+                <small [hidden]="email.valid || (email.pristine && !registerForm.submitted)" class="text-danger">
+                    Email format should be <i>user@domain.com</i>.
+                </small>
+        </div>
+        <div class="form-group form-material floating">
+            <input type="password" [ngClass]="{'empty': !registerModel.password}" [(ngModel)]="registerModel.password" validateEqual="confirmPassword"
+                reverse="true" #password="ngModel" required minlength="6" class="form-control" id="inputPassword" name="password">
+                <label class="floating-label" for="inputPassword">Password</label>
+                <small [hidden]="password.valid || (password.pristine && !registerForm.submitted)" class="text-danger">
+                    Password should be at least 6 characters.
+                </small>
+        </div>
+        <div class="form-group form-material floating">
+            <input type="password" [ngClass]="{'empty': !registerModel.confirmPassword}" [(ngModel)]="registerModel.confirmPassword"
+                validateEqual="password" reverse="false" #confirmPassword="ngModel" required class="form-control" id="inputConfirmPassword"
+                name="confirmPassword">
+                <label class="floating-label" for="inputConfirmPassword">Confirm Password</label>
+                <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !registerForm.submitted)" class="text-danger">
+                Password mismatch
+            </small>
+        </div>
+        <button [disabled]="!registerForm.valid" type="submit" class="btn btn-primary btn-block">Sign up</button>
+    </form>
+    <small *ngIf="errorMessage" class="text-danger">
+       {{errorMessage}}
+    </small>
+    <p class="registerText">Already have an account? <button (click)="toggleRegister(false)" type="button" class="btn btn-link">Sign In</button></p>
+</div>
+<div *ngIf="showPasswordReset" [ngClass]="{'spinnerActive': showSpinner}"  class="loginForm">
+    <spinner *ngIf="showSpinner" class="loginSpinner"></spinner>
+    <h3 class="font-size-24">Find your Dayvulge account</h3>
+    <form (ngSubmit)="resetPassword($event);" autocomplete="off">
+        <div class="form-group">
+            <label class="floating-label" for="resetEmail">Enter your email</label>
+            <input type="email" [(ngModel)]="resetEmail" required class="form-control" id="resetEmail" name="resetEmail" >
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Send</button>
+    </form>
+    <small *ngIf="errorMessage" class="text-danger">
+       {{errorMessage}}
+    </small>
+    <p class="registerText">Already have an account? <button (click)="toggleRegister(false)" type="button" class="btn btn-link">Sign In</button></p>
+</div>

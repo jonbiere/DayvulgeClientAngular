@@ -1,0 +1,11 @@
+<div [ngClass]="{'spinnerActive': showSpinner}" class="createVulgeForm">
+    <spinner *ngIf="showSpinner" class="loginSpinner"></spinner>
+    <h3 class="font-size-24">Dayvulge</h3>
+    <form (ngSubmit)="createVulge($event);" #createVulgeForm="ngForm" autocomplete="off">
+        <div class="form-group">
+                <label for="vulgeTextArea">Vulge</label>
+                <textarea class="form-control" [(ngModel)]="vulgeModel.vulgeText" id="vulgeTextArea" rows="3" required name="vulge" placeholder="What happened today?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Post</button>
+    </form>
+</div>

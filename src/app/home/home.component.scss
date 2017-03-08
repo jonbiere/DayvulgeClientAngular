@@ -1,0 +1,40 @@
+.homeComponent{
+    .vulgeTable{
+        color:black;
+        td{
+            text-align: left;
+            vertical-align: middle;
+        }
+        .voteCell{
+            min-width: 100px;
+            text-align: center;
+            .votesNum{
+                padding-left: 15px;
+            }           
+        }
+        .voteButtons{
+                //float:right;
+                .fa-arrow-circle-up{
+                    cursor: pointer;
+                    font-size:24px;
+                }
+                .fa-arrow-circle-down{
+                    cursor: pointer;
+                    font-size:24px;
+                }
+            }
+    }
+    .vulgeSpinner{
+            position: absolute;
+            top: -2em;
+            right: 31em;
+            opacity: 1;
+    }
+
+    .moreButton{
+        margin:.3em .8em;
+        float:right;
+        font-size:20px;
+        cursor:pointer;
+    }
+}
