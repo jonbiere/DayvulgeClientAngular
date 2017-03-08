@@ -22,29 +22,43 @@
 // Variables
 // ========================================================================
 
-$ribbon-inner-color:         $inverse !default;
-$ribbon-inner-bg:            $brand-dark !default;
+$ribbon-width                 : 150px !default;
+$ribbon-height                : 150px !default;
 
-$ribbon-inner-xs-font-size:  $font-size-sm !default;
-$ribbon-inner-sm-font-size:  $font-size-sm !default;
-$ribbon-inner-lg-font-size:  $font-size-lg !default;
+$ribbon-inner-top             : 16px !default;
+$ribbon-inner-height          : 30px !default;
+$ribbon-inner-color           : $inverse !default;
+$ribbon-inner-bg              : $brand-dark !default;
 
-$ribbon-clip-inner-border:   $brand-dark-active !default;
+$ribbon-inner-xs-height       : 22px !default;
+$ribbon-inner-xs-font-size    : $font-size-sm !default;
 
-$ribbon-primary-inner-bg:    $brand-primary !default;
-$ribbon-primary-clip-border: $brand-primary-active !default;
+$ribbon-inner-sm-height       : 26px !default;
+$ribbon-inner-sm-font-size    : $font-size-sm !default;
 
-$ribbon-success-inner-bg:    $brand-success !default;
-$ribbon-success-clip-border: $brand-success-active !default;
+$ribbon-inner-lg-height       : 38px !default;
+$ribbon-inner-lg-font-size    : $font-size-lg !default;
 
-$ribbon-info-inner-bg:       $brand-info !default;
-$ribbon-info-clip-border:    $brand-info-active !default;
+$ribbon-vertical-inner-left   : $ribbon-inner-top !default;
+$ribbon-vertical-inner-width  : 30px !default;
+$ribbon-vertical-inner-height : 60px !default;
 
-$ribbon-warning-inner-bg:    $brand-warning !default;
-$ribbon-warning-clip-border: $brand-warning-active !default;
+$ribbon-clip-inner-border     : $brand-dark-active !default;
 
-$ribbon-danger-inner-bg:     $brand-danger !default;
-$ribbon-danger-clip-border:  $brand-danger-active !default;
+$ribbon-primary-inner-bg      : $brand-primary !default;
+$ribbon-primary-clip-border   : $brand-primary-active !default;
+
+$ribbon-success-inner-bg      : $brand-success !default;
+$ribbon-success-clip-border   : $brand-success-active !default;
+
+$ribbon-info-inner-bg         : $brand-info !default;
+$ribbon-info-clip-border      : $brand-info-active !default;
+
+$ribbon-warning-inner-bg      : $brand-warning !default;
+$ribbon-warning-clip-border   : $brand-warning-active !default;
+
+$ribbon-danger-inner-bg       : $brand-danger !default;
+$ribbon-danger-clip-border    : $brand-danger-active !default;
 
 
 // Mixins
@@ -66,6 +80,9 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 
 @mixin ribbon-bookmark-variant($border){
   .ribbon-inner {
+    background-color: transparent;
+    background-image: linear-gradient(to left, transparent 22px, $border 0);
+
     &:before {
       border-color: $border;
       border-right-color: transparent;
@@ -74,6 +91,8 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 
   &.ribbon-reverse {
     .ribbon-inner {
+      background-image: linear-gradient(to right, transparent 22px, $border 0);
+
       &:before {
         border-right-color: $border;
         border-left-color: transparent;
@@ -83,6 +102,8 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 
   &.ribbon-vertical {
     .ribbon-inner {
+      background-image: linear-gradient(to top, transparent 22px, $border 0);
+
       &:before {
         border-right-color: $border;
         border-bottom-color: transparent;
@@ -102,25 +123,21 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 }
 
 @mixin ribbon-clip-variant($border){
-  .ribbon-inner {
-    &:after {
+  &.ribbon-clip {
+    &:before {
       border-top-color: $border;
       border-right-color: $border;
     }
-  }
 
-  &.ribbon-reverse {
-    .ribbon-inner {
-      &:after {
+    &.ribbon-reverse {
+      &:before {
         border-right-color: transparent;
         border-left-color: $border;
       }
     }
-  }
 
-  &.ribbon-bottom {
-    .ribbon-inner {
-      &:after {
+    &.ribbon-bottom {
+      &:before {
         border-top-color: transparent;
         border-bottom-color: $border;
       }
@@ -129,29 +146,26 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 }
 
 @mixin ribbon-corner-variant($border){
+  &:before {
+    border-top-color: $border;
+    border-left-color: $border;
+  }
+
   .ribbon-inner {
     background-color: transparent;
-    &:before {
-      border-top-color: $border;
-      border-left-color: $border;
-    }
   }
 
   &.ribbon-reverse {
-    .ribbon-inner {
-      &:before {
-        border-right-color: $border;
-        border-left-color: transparent;
-      }
+    &:before {
+      border-right-color: $border;
+      border-left-color: transparent;
     }
   }
 
   &.ribbon-bottom {
-    .ribbon-inner {
-      &:before {
-        border-top-color: transparent;
-        border-bottom-color: $border;
-      }
+    &:before {
+      border-top-color: transparent;
+      border-bottom-color: $border;
     }
   }
 }
@@ -163,23 +177,26 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
   position: absolute;
   top: -3px;
   left: -3px;
-  width: 150px;
-  height: 150px;
+  width: $ribbon-width;
+  height: $ribbon-height;
   text-align: center;
   background-color: transparent;
 }
 
 .ribbon-inner {
   position: absolute;
-  top: 16px;
+  top: $ribbon-inner-top;
   left: 0;
   display: inline-block;
-  height: 30px;
+  height: $ribbon-inner-height;
+  max-width: 100%;
   padding-right: 20px;
   padding-left: 20px;
-  line-height: 30px;
+  line-height: $ribbon-inner-height;
   color: $ribbon-inner-color;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   background-color: $ribbon-inner-bg;
 
   .icon {
@@ -187,30 +204,37 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
   }
 }
 
+// .ribbon-text {
+//   $ribbon-text-mw: 100px;
+//   max-width: $ribbon-text-mw;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+// }
+
 // Size Modifier
 // ========================================================================
 
 .ribbon-lg {
   .ribbon-inner {
-    height: 38px;
+    height: $ribbon-inner-lg-height;
     font-size: $ribbon-inner-lg-font-size;
-    line-height: 38px;
+    line-height: $ribbon-inner-lg-height;
   }
 }
 
 .ribbon-sm {
   .ribbon-inner {
-    height: 26px;
+    height: $ribbon-inner-sm-height;
     font-size: $ribbon-inner-sm-font-size;
-    line-height: 26px;
+    line-height: $ribbon-inner-sm-height;
   }
 }
 
 .ribbon-xs {
   .ribbon-inner {
-    height: 22px;
+    height: $ribbon-inner-xs-height;
     font-size: $ribbon-inner-xs-font-size;
-    line-height: 22px;
+    line-height: $ribbon-inner-xs-height;
   }
 }
 
@@ -220,9 +244,9 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 .ribbon-vertical {
   .ribbon-inner {
     top: 0;
-    left: 16px;
-    width: 30px;
-    height: 60px;
+    left: $ribbon-vertical-inner-left;
+    width: $ribbon-vertical-inner-width;
+    height: $ribbon-vertical-inner-height;
     padding: 15px 0;
   }
 
@@ -272,12 +296,15 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 
 .ribbon-bookmark {
   .ribbon-inner {
+    padding-right: 42px; // 20px + 22px
+    background-color: transparent;
+    background-image: linear-gradient(to left, transparent 22px, $ribbon-inner-bg 0);
     box-shadow: none;
 
     &:before {
       position: absolute;
       top: 0;
-      left: 100%;
+      right: 0;
       display: block;
       width: 0;
       height: 0;
@@ -289,8 +316,14 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 
   &.ribbon-vertical {
     .ribbon-inner {
+      height: 82px; // 60px + 22px
+      padding-right: 0;
+      padding-bottom: 37px; // 15px + 22px
+      background-image: linear-gradient(to top, transparent 22px, $ribbon-inner-bg 0);
+
       &:before {
-        top: 100%;
+        top: auto;
+        bottom: 0;
         left: 0;
         margin-top: -15px;
         border-right: 15px solid $ribbon-inner-bg;
@@ -325,9 +358,12 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 
   &.ribbon-reverse {
     .ribbon-inner {
+      padding-left: 42px; // 20px + 22px
+      padding-right: 20px;
+      background-image: linear-gradient(to right, transparent 22px, $ribbon-inner-bg 0);
+
       &:before {
-        right: 100%;
-        left: auto;
+        left: 0;
         border-right: 15px solid $ribbon-inner-bg;
         border-left: 10px solid transparent;
       }
@@ -336,6 +372,9 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 
   &.ribbon-reverse.ribbon-vertical {
     .ribbon-inner {
+      padding-left: 0;
+      padding-right: 0;
+
       &:before {
         right: auto;
         left: 0;
@@ -424,6 +463,18 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
   left: 0;
   overflow: hidden;
 
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    content: '';
+    border: 30px solid transparent;
+    border-top-color: $ribbon-inner-bg;
+    border-left-color: $ribbon-inner-bg;
+  }
+
   .ribbon-inner {
     top: 0;
     left: 0;
@@ -432,60 +483,50 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
     padding: 0;
     line-height: 35px;
     background-color: transparent;
-
-    &:before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      content: '';
-      border: 30px solid transparent;
-      border-top-color: $ribbon-inner-bg;
-      border-left-color: $ribbon-inner-bg;
-    }
   }
+
   &.ribbon-reverse {
     right: 0;
     left: auto;
 
+    &:before {
+      right: 0;
+      left: auto;
+      border-right-color: $ribbon-inner-bg;
+      border-left-color: transparent;
+    }
+
     .ribbon-inner {
       right: 0;
       left: auto;
-
-      &:before {
-        right: 0;
-        left: auto;
-        border-right-color: $ribbon-inner-bg;
-        border-left-color: transparent;
-      }
     }
   }
+
   &.ribbon-bottom {
     top: auto;
     bottom: 0;
 
+    &:before {
+      top: auto;
+      bottom: 0;
+      border-top-color: transparent;
+      border-bottom-color: $ribbon-inner-bg;
+    }
+
     .ribbon-inner {
       top: auto;
       bottom: 0;
-
-      &:before {
-        top: auto;
-        bottom: 0;
-        border-top-color: transparent;
-        border-bottom-color: $ribbon-inner-bg;
-      }
     }
   }
   &.ribbon-xs {
+    &:before {
+      border-width: 22px;
+    }
+
     .ribbon-inner {
       width: 28px;
       height: 26px;
       line-height: 26px;
-
-      &:before {
-        border-width: 22px;
-      }
 
       > .icon {
         font-size: $ribbon-inner-xs-font-size;
@@ -493,28 +534,29 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
     }
   }
   &.ribbon-sm {
+    &:before {
+      border-width: 26px;
+    }
+
     .ribbon-inner {
       width: 34px;
       height: 32px;
       line-height: 32px;
 
-      &:before {
-        border-width: 26px;
-      }
       > .icon {
         font-size: $ribbon-inner-sm-font-size;
       }
     }
   }
   &.ribbon-lg {
+    &:before {
+      border-width: 36px;
+    }
+
     .ribbon-inner {
       width: 46px;
       height: 44px;
       line-height: 44px;
-
-      &:before {
-        border-width: 36px;
-      }
 
       > .icon {
         font-size: $ribbon-inner-lg-font-size;
@@ -529,39 +571,39 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
 .ribbon-clip {
   left: -14px;
 
+  &:before {
+    position: absolute;
+    top: #{$ribbon-inner-height + $ribbon-inner-top};
+    left: 0;
+    width: 0;
+    height: 0;
+    content: '';
+    border: 7px solid transparent;
+    border-top-color: $ribbon-clip-inner-border;
+    border-right-color: $ribbon-clip-inner-border;
+  }
+
   .ribbon-inner {
     padding-left: 23px;
     border-radius: 0 5px 5px 0;
     // box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.3) inset, 0 0 20px rgba(0, 0, 0, 0.1) inset, 0 -1px 1px rgba(0, 0, 0, 0.4);
-    
-    &:after {
-      position: absolute;
-      bottom: -14px;
-      left: 0;
-      width: 0;
-      height: 0;
-      content: '';
-      border: 7px solid transparent;
-      border-top-color: $ribbon-clip-inner-border;
-      border-right-color: $ribbon-clip-inner-border;
-    }
   }
 
   &.ribbon-reverse {
     right: -14px;
     left: auto;
 
+    &:before {
+      right: 0;
+      left: auto;
+      border-right-color: transparent;
+      border-left-color: $ribbon-clip-inner-border;
+    }
+
     .ribbon-inner {
       padding-right: 23px;
       padding-left: 15px;
       border-radius: 5px 0 0 5px;
-
-      &:after {
-        right: 0;
-        left: auto;
-        border-right-color: transparent;
-        border-left-color: $ribbon-clip-inner-border;
-      }
     }
   }
 
@@ -569,16 +611,61 @@ $ribbon-danger-clip-border:  $brand-danger-active !default;
     top: auto;
     bottom: -3px;
 
+    &:before {
+      top: auto;
+      bottom: #{$ribbon-inner-height + $ribbon-inner-top};
+      border-top-color: transparent;
+      border-bottom-color: $ribbon-clip-inner-border;
+    }
+
     .ribbon-inner {
       top: auto;
       bottom: 16px;
       // box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 0 20px rgba(0, 0, 0, 0.1) inset, 0 1px 1px rgba(0, 0, 0, 0.4);
-      
-      &:after {
-        top: -14px;
-        bottom: auto;
-        border-top-color: transparent;
-        border-bottom-color: $ribbon-clip-inner-border;
+    }
+  }
+
+  &.ribbon-xs {
+    $top: #{$ribbon-inner-xs-height + $ribbon-inner-top} !default;
+
+    &:before {
+      top: $top;
+    }
+
+    &.ribbon-bottom {
+      &:before {
+        top: auto;
+        bottom: $top;
+      }
+    }
+  }
+
+  &.ribbon-sm {
+    $top: #{$ribbon-inner-sm-height + $ribbon-inner-top} !default;
+
+    &:before {
+      top: $top;
+    }
+
+    &.ribbon-bottom {
+      &:before {
+        top: auto;
+        bottom: $top;
+      }
+    }
+  }
+
+  &.ribbon-lg {
+    $top: #{$ribbon-inner-lg-height + $ribbon-inner-top} !default;
+
+    &:before {
+      top: $top;
+    }
+
+    &.ribbon-bottom {
+      &:before {
+        top: auto;
+        bottom: $top;
       }
     }
   }

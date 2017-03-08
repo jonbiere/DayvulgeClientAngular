@@ -22,7 +22,7 @@
 @import 'bootstrap_extend/navbar';
 @import 'bootstrap_extend/breadcrumbs';
 @import 'bootstrap_extend/pagination';
-@import 'bootstrap_extend/tags';
+@import 'bootstrap_extend/badge';
 @import 'bootstrap_extend/jumbotron';
 @import 'bootstrap_extend/alerts';
 @import 'bootstrap_extend/progress-bars';
@@ -30,7 +30,10 @@
 @import 'bootstrap_extend/list-group';
 @import 'bootstrap_extend/close';
 @import 'bootstrap_extend/card';
-@import 'bootstrap_extend/font-weight';
+
+// @if $font-weight-override == true {
+  @import 'bootstrap_extend/font-weight';
+// }
 
 // Components w/ JavaScript
 // -------------------------------
@@ -42,4 +45,3 @@
 // Utility classes
 // -------------------------------
 @import 'bootstrap_extend/utilities';
-

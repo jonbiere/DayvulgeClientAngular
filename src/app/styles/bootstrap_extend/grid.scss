@@ -53,15 +53,21 @@
   }
 
   @each $breakpoint in map-keys($breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $breakpoints);
+
     @for $i from 1 through $columns {
       // .col-#{$breakpoint}-#{$i} {
       //   @extend %grid-column-padding;
       //   // @extend %grid-columns-extend;
       // }
-      .row-lg > .col-#{$breakpoint}-#{$i} {
+      .row-lg > .col#{$infix}-#{$i} {
         @extend %grid-column-lg-padding;
         // @extend %grid-columns-extend;
       }
+    }
+
+    .row-lg > .col#{$infix} {
+      @extend %grid-column-lg-padding;
     }
   }
 }

@@ -13,11 +13,12 @@ import '@angular/common';
 import '@angular/forms';
 import '@angular/http';
 import '@angular/router';
-import 'jquery';
-import 'tether';
+//import 'jquery';
+//import 'tether';
 import 'moment';
-//import '@ng-bootstrap/ng-bootstrap';
-require('./assets/bootstrap.min.js');
+//import 'bootstrap';
+import '@ng-bootstrap/ng-bootstrap';
+//require('./assets/bootstrap.min.js');
 
 
 // AngularClass

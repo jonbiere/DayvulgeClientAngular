@@ -132,6 +132,12 @@ $alert-social-text: $color-white !default;
 // -------------------------
 
 .alert-dismissible {
+  //fix remark-v4 v4a6-dev 20170301 ---Kevin_y
+  .close {
+    padding: 0;
+  }
+  //---Kevin_y
+  
   padding-right: ($alert-padding-horizontal + 20);
   .close {
     top: 0;

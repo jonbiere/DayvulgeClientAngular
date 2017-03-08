@@ -24,12 +24,15 @@
   // --------
   &-nav {
     &.nav-tabs {
-      width: 100%;
+      // width: 100%;
 
       > .nav-item {
-        display: table-cell;
-        float: none;
-        width: 1%;
+        // display: table-cell;
+        // float: none;
+        // width: 1%;
+        flex: 1 1 33.3333%;
+        margin-left: 0px;
+
         > .nav-link {
           font-size: 16px;
           line-height: $site-sidebar-nav-height;

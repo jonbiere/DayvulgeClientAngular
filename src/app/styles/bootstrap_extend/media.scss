@@ -2,9 +2,9 @@
 //
 // Component:       `media`
 //
-// Modifiers:       `media-lg`
-//                  `media-sm`
-//                  `media-xs`
+// Modifiers:       
+//                  
+//                  
 //
 // ========================================================================
 
@@ -34,9 +34,6 @@ $media-column-spacing:     20px !default;
   }
 }
 
-.media-object {
-  width: 120px;
-}
 .media-body {
   overflow: auto;
 }
@@ -45,49 +42,6 @@ $media-column-spacing:     20px !default;
     font-size: $media-meta-font-size;
     margin-bottom: 3px;
 }
-
-
-// Size Modifier
-// ========================================================================
-
-// Modifier: `media-lg`
-// -------------------------
-
-.media-lg {
-  .media-object {
-    width: 160px;
-  }
-  .media {
-    margin-left: -110px;
-  }
-}
-
-
-// Modifier: `media-sm`
-// -------------------------
-
-.media-sm {
-  .media-object {
-    width: 80px;
-  }
-  .media {
-    margin-left: -70px;
-  }
-}
-
-
-// Modifier: `media-xs`
-// -------------------------
-
-.media-xs {
-  .media-object {
-    width: 60px;
-  }
-  .media {
-    margin-left: -60px;
-  }
-}
-
 
 // Media Modifier
 // ========================================================================
@@ -105,22 +59,17 @@ $media-column-spacing:     20px !default;
 }
 
 @include media-breakpoint-down(xs) {
-  .media-lg .media {
-    margin-left: 0;
-  }
-
   .media {
-    .media-left {
+    //fix for remark-v4 v4a6-dev 20170302 ---Kevin_y
+    flex-direction: column;
+    > div:first-child {
       margin-bottom: 5px;
     }
+    //---Kevin_y
 
     .media {
       padding-left: 15px;
     }
-  }
-
-  .media-left {
-    display: block;
   }
 
   // .media-body {

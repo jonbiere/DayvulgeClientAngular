@@ -191,7 +191,7 @@ $panel-loading-z-index                   : ($zindex-base + 5) !default;
     margin-right: 10px;
   }
 
-  & > .tag {
+  & > .badge {
     margin-left: 10px;
   }
 
@@ -849,7 +849,7 @@ ul.panel-actions {
     + .panel-collapse > .panel-body {
       border-top-color: $border;
     }
-    .tag-pill {
+    .badge-pill {
       color: $heading-bg-color;
       background-color: $heading-text-color;
     }

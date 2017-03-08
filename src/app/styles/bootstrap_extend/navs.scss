@@ -84,6 +84,13 @@ $nav-quick-border-color                     : $border-color-base !default;
     background-color: $nav-link-hover-bg;
   }
 
+  &.disabled {
+    &:focus,
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
   .close {
     display: inline-block;
     margin-left: 10px;
@@ -138,7 +145,7 @@ $nav-quick-border-color                     : $border-color-base !default;
     }
   }
 
-  .tag, .tag-pill {
+  .badge, .badge-pill {
     position: absolute;
     top: 0;
     right: 0;
@@ -193,9 +200,9 @@ $nav-quick-border-color                     : $border-color-base !default;
       margin-right: .5em;
     }
 
-    @include hover-focus {
-      background-color: $nav-link-hover-bg;
-    }
+    // @include hover-focus {
+    //   background-color: $nav-link-hover-bg;
+    // }
 
     // &.active {
     //   &,
@@ -468,6 +475,7 @@ $nav-quick-border-color                     : $border-color-base !default;
   @include clearfix();
 
   .nav-tabs {
+    flex-direction: column;
     float: left;
     border-right: 1px solid $nav-tabs-border-color;
     border-bottom: none;

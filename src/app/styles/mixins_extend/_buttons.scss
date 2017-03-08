@@ -129,7 +129,7 @@
     }
   }
 
-  .tag-pill {
+  .badge-pill {
     color: $background;
     background-color: $color;
   }
@@ -176,7 +176,7 @@
     background-color: $hover-bg;
     color: $hover-color;
 
-    .tag-pill {
+    .badge-pill {
       color: $color;
       background-color: $hover-color;
     }
@@ -201,7 +201,7 @@
       color: $active-color;
     }
 
-    .tag-pill {
+    .badge-pill {
       color: $active-color;
     }
   }

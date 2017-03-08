@@ -84,12 +84,12 @@ $pearl-xs-size:               24px !default;
 // ========================================================================
 .pearls {
   // &.row {
-    @if $enable-flex {
+    // @if $enable-flex {
       display: flex;
       flex-wrap: wrap;
-    } @else {
-      display: block;
-    }
+    // } @else {
+      // display: block;
+    // }
   // }
 
   margin: 0 0 $pearls-margin-bottom;

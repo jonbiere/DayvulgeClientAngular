@@ -28,7 +28,7 @@ $btn-group-shadow:            $btn-shadow !default;
 
   &,
   &-vertical {
-    box-shadow: $btn-group-shadow;
+    // box-shadow: $btn-group-shadow; //to fix remark-v4 issue#301 ---Kevin_y
 
     > .btn,
     .btn-group,

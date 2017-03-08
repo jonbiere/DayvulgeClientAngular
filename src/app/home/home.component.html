@@ -4,21 +4,24 @@
     <div class="row">
       <div class="offset-md-3 col-md-6 offset-md-3">
         <div class="card card-shadow">
-          <div class="moreButton" (click)="showMore()" >
-            <i class="icon md-more" ></i>
+          <div class="card-block">
+            <div class="moreButton" (click)="showMore()">
+              <i class="icon md-more"></i>
+            </div>
+            <blockquote class="blockquote">
+              <p class="mb-0">We have elected the first orange presedent!!</p>
+              <footer class="blockquote-footer">
+                jon.biere@gmail.com
+              </footer>
+            </blockquote>
           </div>
-          <blockquote class="blockquote">
-            <p class="mb-0">We have elected the first orange presedent!!</p>
-            <footer class="blockquote-footer">
-              jon.biere@gmail.com
-            </footer>
-          </blockquote>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="offset-md-1 col-md-10 offset-md-1">
         <div class="card card-shadow">
+          <div class="card-block">
           <spinner *ngIf="showSpinner" class="vulgeSpinner"></spinner>
           <table *ngIf="!showSpinner" class="table table-hover">
             <thead>
@@ -37,14 +40,15 @@
                   {{vulge.votes}}
                 </td>
                 <td>
-                   <div class="voteButtons">
-                    <i (click)="vote(vulge.$key, true)" class="icon fa-arrow-circle-up" aria-hidden="true"></i>    
-                    <i (click)="vote(vulge.$key, false)" class="icon fa-arrow-circle-down" aria-hidden="true"></i>                              
+                  <div class="voteButtons">
+                    <i (click)="vote(vulge.$key, true)" class="icon fa-arrow-circle-up" aria-hidden="true"></i>
+                    <i (click)="vote(vulge.$key, false)" class="icon fa-arrow-circle-down" aria-hidden="true"></i>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>

@@ -72,8 +72,16 @@ $modal-danger-bg           : $brand-danger !default;
   border-bottom: none;
 }
 
+//start add for remark-v4 v4a6-dev correct position ---Kevin_y
+.modal-header .modal-title {
+  margin-top: 0;
+  order: 1;
+}
+//end ---Kevin_y
+
 .modal-header .close {
   margin-top: 1px;
+  order: 2;//add for remark-v4 v4a6-dev correct position ---Kevin_y
 }
 
 .modal-body {
@@ -205,6 +213,7 @@ $modal-danger-bg           : $brand-danger !default;
 
   .modal-footer {
     border-top: none;
+    flex-wrap: wrap;//fix remark-v4 v4a6-dev  sidebar style---Kevin_y
   }
   
   button.close {
@@ -219,7 +228,7 @@ $modal-danger-bg           : $brand-danger !default;
 .modal.fade .modal-dialog.modal-sidebar {
   @include translate(25%, 0px);
 }
-.modal.in .modal-dialog.modal-sidebar {
+.modal.show .modal-dialog.modal-sidebar {
   @include translate(0px, 0px);
 }
 
@@ -230,7 +239,7 @@ $modal-danger-bg           : $brand-danger !default;
 .modal-fill-in {
   background-color: transparent;
 
-  &.in {
+  &.show {
     background-color: $modal-fill-in-bg;
     opacity: 1;
   }
@@ -345,7 +354,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all .3s ease 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         opacity: 1;
         transform: scale(1);
@@ -363,7 +372,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all .3s cubic-bezier(.25, .5, .5, .9) 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         opacity: 1;
         @include translate(0px, 0px);
@@ -381,7 +390,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all .3s ease 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         opacity: 1;
         @include translate(0px, 0px);
@@ -399,7 +408,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all 0.5s ease 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         opacity: 1;
         @include transform(scale(1) rotate(0deg));
@@ -419,7 +428,7 @@ $modal-danger-bg           : $brand-danger !default;
       @include transform-style(preserve-3d);
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         opacity: 1;
         @include transform(translateZ(0px) rotateX(0deg));
@@ -439,7 +448,7 @@ $modal-danger-bg           : $brand-danger !default;
       @include transform-style(preserve-3d);
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         @include transform(translate(0%) translateZ(0px) rotate(0deg));
         transition: all 0.3s ease-in 0s;
@@ -459,7 +468,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all 0.3s ease 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         transform:rotateY(0deg);
       }
@@ -478,7 +487,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all 0.3s ease 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         transform:rotateX(0deg);
       }
@@ -498,7 +507,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all 0.3s ease 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         transform:rotateX(0deg);
       }
@@ -515,7 +524,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all 0.3s ease 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         opacity: 1;
         transform: scale(1);
@@ -537,7 +546,7 @@ $modal-danger-bg           : $brand-danger !default;
       background-color: $inverse;
     }
 
-    &.in {
+    &.show {
       background: $modal-content-bg;
 
       .modal-dialog {
@@ -564,7 +573,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all 0.5s ease 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         animation: slit 0.7s ease-out forwards;
       }
@@ -584,7 +593,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all 0.3s ease-out 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         @include transform(translateY(0%) rotateX(0deg));
       }
@@ -604,7 +613,7 @@ $modal-danger-bg           : $brand-danger !default;
       transition: all 0.3s ease-out 0s;
     }
 
-    &.in {
+    &.show {
       .modal-dialog {
         @include transform(translateZ(0px) translateX(0%) rotateY(0deg));
       }

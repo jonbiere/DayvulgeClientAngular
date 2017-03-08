@@ -283,6 +283,15 @@ $btn-styles: (
   }
 }
 
+a.btn:not(.btn-link) {
+  text-decoration: none;
+  &,
+  &:active,
+  &.active {
+    text-decoration: none;
+  }
+}
+
 // Modifier: `btn-link`
 // -------------------------
 

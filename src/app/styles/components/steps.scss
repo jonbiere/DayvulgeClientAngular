@@ -83,12 +83,12 @@ $step-xs-number-size:              24px !default;
     margin: 0 0 $steps-margin-bottom;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
     
-    @if $enable-flex {
+    // @if $enable-flex {
       display: flex;
       flex-wrap: wrap;
-    } @else {
-      display: block;
-    }
+    // } @else {
+      // display: block;
+    // }
 }
 
 .step {
@@ -147,20 +147,20 @@ $step-xs-number-size:              24px !default;
 // ========================================================================
 
 .steps-vertical {
-  @if $enable-flex {
+  // @if $enable-flex {
     flex-direction: column;
-  } @else {
-    .step {
-      &,
-      &[class*="col-"] {
-        width: 100%;
-        float: none;
-      }
+  // } @else {
+  //   .step {
+  //     &,
+  //     &[class*="col-"] {
+  //       width: 100%;
+  //       float: none;
+  //     }
 
-      display: block;
-      padding: $step-vertical-padding-vertical $step-vertical-padding-horizontal;
-    }
-  }
+  //     display: block;
+  //     padding: $step-vertical-padding-vertical $step-vertical-padding-horizontal;
+  //   }
+  // }
 }
 
 // State Modifier

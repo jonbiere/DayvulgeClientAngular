@@ -35,8 +35,8 @@ $icon-li-width:      (30em / 14) !default;
   @include make-icon();
   line-height: 1;
 
-  &.pull-xs-left { margin-right: .3em; }
-  &.pull-xs-right { margin-left: .3em; }
+  &.float-left { margin-right: .3em; }
+  &.float-right { margin-left: .3em; }
 }
 
 // Modifier: `icon-circle`

@@ -280,6 +280,7 @@ $card-img-left-mobile-height: 320px !default;
 //add by kevin_y 20160920
 .card-columns {
   .card {
+    margin-bottom: $card-margin-bottom;//recorrect margin-size for remark-v4 v4a6-dev ---Kevin_y
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid;

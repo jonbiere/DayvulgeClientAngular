@@ -8,7 +8,7 @@ import {Profile} from '../viewModels';
 import {AppSettings} from '../appSettings';
 import * as firebase from 'firebase';
 
-declare var jQuery:any;
+//declare var jQuery:any;
 @Injectable()
 export class AuthenticationService {
     currentuser:BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User>(null);
@@ -24,13 +24,13 @@ export class AuthenticationService {
                     this.toastr.info(`Pleave verify your account to continue. An email has been sent to ${authState.auth.email}`);
                 }
                 else{
-                    jQuery('#loginModal').modal('hide');
+                    //jQuery('#loginModal').modal('hide');
                     this.currentuser.next(authState.auth);
                     this.createUserProfileIfNeeded(authState.auth);
                 }
             } 
             else{
-                jQuery('#loginModal').modal('hide');
+                //jQuery('#loginModal').modal('hide');
                 this.currentuser.next(authState.auth);
                 this.createUserProfileIfNeeded(authState.auth);
             }   

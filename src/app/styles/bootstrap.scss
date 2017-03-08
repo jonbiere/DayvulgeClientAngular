@@ -1,10 +1,12 @@
-
 // Core variables and mixins
 // -------------------------------
 @import 'vars';
 
+// @import "variables";
+// @import "mixins";
+
 // Reset and dependencies
-@import "bootstrap/normalize";
+//@import "bootstrap/normalize";
 @import "bootstrap/print";
 
 // Core CSS
@@ -20,17 +22,16 @@
 
 // Components
 // -------------------------------
-@import 'bootstrap/animation';
+@import 'bootstrap/transitions';
 @import 'bootstrap/dropdown';
 @import 'bootstrap/button-group';
 @import 'bootstrap/input-group';
-@import 'bootstrap/custom-forms';
 @import 'bootstrap/nav';
 @import 'bootstrap/navbar';
 @import 'bootstrap/card';
 @import 'bootstrap/breadcrumb';
 @import 'bootstrap/pagination';
-@import 'bootstrap/tags';
+@import 'bootstrap/badge';
 @import 'bootstrap/jumbotron';
 @import 'bootstrap/alert';
 @import 'bootstrap/media';
@@ -47,12 +48,4 @@
 
 // Utility classes
 // -------------------------------
-@import "bootstrap/utilities/background";
-@import "bootstrap/utilities/clearfix";
-@import "bootstrap/utilities/display";
-@import "bootstrap/utilities/flex";
-@import "bootstrap/utilities/pulls";
-@import "bootstrap/utilities/screenreaders";
-@import "bootstrap/utilities/spacing";
-@import "bootstrap/utilities/text";
-@import "bootstrap/utilities/visibility";
+@import 'bootstrap/utilities';

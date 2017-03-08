@@ -22,7 +22,11 @@
 
 @mixin transition($transition...) {
   @if $enable-transitions {
-    transition: $transition;
+    @if length($transition) == 0 {
+      transition: $transition-base;
+    } @else {
+      transition: $transition;
+    }
   }
 }
 
@@ -30,16 +34,18 @@
 @import "mixins/breakpoints";
 @import "mixins/hover";
 @import "mixins/image";
-@import "mixins/tag";
-@import "mixins/reset-filter";
+@import "mixins/badge";
+// @import "mixins/reset-filter";
 @import "mixins/resize";
 @import "mixins/screen-reader";
 @import "mixins/size";
-@import "mixins/tab-focus";
+// @import "mixins/tab-focus";
 @import "mixins/reset-text";
 @import "mixins/text-emphasis";
 @import "mixins/text-hide";
 @import "mixins/text-truncate";
+@import "mixins/transforms";
+@import "mixins/visibility";
 
 // // Components
 @import "mixins/alert";
@@ -50,7 +56,7 @@
 @import "mixins/list-group";
 @import "mixins/nav-divider";
 @import "mixins/forms";
-@import "mixins/progress";
+// @import "mixins/progress";
 @import "mixins/table-row";
 
 // // Skins
@@ -63,7 +69,7 @@
 // @import "mixins/navbar-align";
 @import "mixins/grid-framework";
 @import "mixins/grid";
-@import "mixins/pulls";
+@import "mixins/float";
 
 
 // extend mixins
@@ -87,6 +93,6 @@
 @import 'mixins_extend/modals';
 @import 'mixins_extend/navs';
 @import 'mixins_extend/popovers';
-@import 'mixins_extend/tags';
+@import 'mixins_extend/badges';
 @import 'mixins_extend/tooltip';
 @import 'mixins_extend/blockquote';

@@ -62,6 +62,14 @@ $popover-danger-border  : $brand-danger !default;
   }
 }
 
+//fix v4a6-dev 20170303 ---Kevin_y
+
+.popover-title {
+  margin: 0;
+}
+
+//---Kevin_y
+
 
 // Color Modifier
 // ========================================================================

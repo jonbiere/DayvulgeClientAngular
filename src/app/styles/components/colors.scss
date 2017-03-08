@@ -38,7 +38,7 @@ $primary-lists: (
 
   @each $index in $map {
     .#{$type-class}#{$label}-#{nth($index, 1)} {
-      #{$type-property}: nth($index, 2);
+      #{$type-property}: nth($index, 2) !important;
     }
   }
 }

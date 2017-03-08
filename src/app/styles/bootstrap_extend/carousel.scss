@@ -15,25 +15,22 @@ $carousel-caption-title-font-size:        20px !default;
 $carousel-caption-title-color:            $inverse !default;
 
 $carousel-control-hover-opacity:          0.4 !default;
-$carousel-control-icon-size:              $carousel-control-font-size !default;
+
+$carousel-control-icon-font-size:         30px !default;
 
 $carousel-control-screen-icon-size:       48px !default;
 $carousel-control-screen-icon-font-size:  $carousel-control-screen-icon-size !default;
 
 $carousel-indicators-list-margin:         3px !default;
 $carousel-indicators-list-bg-color:       rgba(255, 255, 255, 0.3) !default;
-$carousel-indicators-list-active-size:    10px !default;
+$carousel-indicators-list-border-radius:  10px !default;
 
 
 // Component: Carousel
 // ========================================================================
 
-.carousel-control {
-  // &.right,
-  // &.left {
-  //   background: transparent;
-  // }
-
+.carousel-control-next,
+.carousel-control-prev {
   min-width: 50px;
 
   @include hover-focus {
@@ -41,24 +38,10 @@ $carousel-indicators-list-active-size:    10px !default;
   }
 
   // In order to add icons by myself
-  .icon {
-    position: absolute;
-    top: 50%;
+  &-icon {
+    font-size: $carousel-control-icon-font-size;
     z-index: 5;
-    display: inline-block;
-    width: $carousel-control-icon-size;
-    height: $carousel-control-icon-size;
-    margin-top: (-$carousel-control-icon-size / 2);
-  }
-
-  &.left .icon {
-    left: 50%;
-    margin-left: (-$carousel-control-icon-size / 2);
-  }
-
-  &.right .icon {
-    right: 50%;
-    margin-right: (-$carousel-control-icon-size / 2);
+    background-image: none;
   }
 }
 
@@ -69,18 +52,10 @@ $carousel-indicators-list-active-size:    10px !default;
 }
 
 .carousel-indicators {
-  margin-bottom: 0;
-
   li {
-    margin: $carousel-indicators-list-margin;
     background-color: $carousel-indicators-list-bg-color;
-    border: none;
-  }
-
-  .active {
-    width: $carousel-indicators-list-active-size;
-    height: $carousel-indicators-list-active-size;
-    margin: $carousel-indicators-list-margin;
+    border-radius: $carousel-indicators-list-border-radius;
+    cursor: pointer;
   }
 }
 
@@ -158,20 +133,12 @@ $carousel-indicators-list-active-size:    10px !default;
 // ========================================================================
 
 @include media-breakpoint-up(md) {
-  .carousel-control {
-    .icon {
+  .carousel-control-next,
+  .carousel-control-prev {
+    &-icon {
       width: $carousel-control-screen-icon-size;
       height: $carousel-control-screen-icon-size;
-      margin-top: (-$carousel-control-screen-icon-size / 2);
       font-size: $carousel-control-screen-icon-font-size;
-    }
-
-    &.left .icon {
-      margin-left: (-$carousel-control-screen-icon-size / 2);
-    }
-
-    &.right .icon {
-      margin-right: (-$carousel-control-screen-icon-size / 2);
     }
   }
 }

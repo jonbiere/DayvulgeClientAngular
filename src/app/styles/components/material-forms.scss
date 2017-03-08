@@ -319,6 +319,7 @@ $form-material-disabled-placeholder-color:      $gray-light !default;
 
   .input-group {
     .form-control-wrap {
+      flex: 1 1 auto;//fish00301
       .form-control {
         float: none;
       }
