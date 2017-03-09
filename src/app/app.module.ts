@@ -2,9 +2,12 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { AngularFireModule } from 'angularfire2';
+
+
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -72,7 +75,7 @@ type StoreType = {
     TimelineComponent,
     NoContentComponent,
     XLarge,
-    LoginComponent,
+    LoginComponent,   
     EqualValidator,
     SpinnerComponent,
     CreateVulgeComponent,
@@ -80,11 +83,15 @@ type StoreType = {
     NotificationPipe,
     UserVotePipe
   ],
+  entryComponents:[
+     LoginComponent
+  ],
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    NgbModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

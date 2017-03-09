@@ -1,11 +1,12 @@
 <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-<div class="appContainer" [ngClass]="{'site-menubar-open': sideMenuOpen}">
+    <!--[ngClass]="{'site-menubar-open': sideMenuOpen, 'site-menubar-fixed': sideMenuOpen}"-->
+<div class="appContainer" >
   <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse" role="navigation">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left" [ngClass]="{'hided': !sideMenuOpen}"
-        (click)="toggleMobileSideMenu()" data-toggle="menubar">
+       <!--(click)="toggleMobileSideMenu() [ngClass]="{'hided': !sideMenuOpen}""-->
+      <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided" data-toggle="menubar">
         <span class="sr-only">Toggle navigation</span>
         <span class="hamburger-bar"></span>
         </button>
@@ -125,7 +126,7 @@
             <img class="navbar-brand-logo" src="../assets/images/logo.png" title="Remark">
           </a>
         </div>
-        <button *ngIf="!currentUser" type="button" class="loginButton btn btn-link navbar-right navbar-btn" data-toggle="modal" data-target="#loginModal">
+        <button *ngIf="!currentUser" (click)="openLoginModal()" type="button" class="loginButton btn btn-link navbar-right navbar-btn">
           Have an account? Login
         </button>
       </div>
@@ -176,24 +177,15 @@
     <a [routerLink]="['about']">About</a> Crafted with <i class="red-600 icon md-favorite"></i> by <a href="http://themeforest.net/user/amazingSurge">amazingSurge</a>
   </div>
 </footer>
-<!-- Login Modal -->
-<div *ngIf="!currentUser" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalTitle"
-  aria-hidden="true">
+<template ngbModalContainer></template>
+
+<!-- Vulge Modal -->
+<div *ngIf="currentUser" class="modal fade" id="vulgeModal" tabindex="-1" role="dialog" aria-labelledby="vulgeModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body page-login-main">
-        <login></login>
+        <create-vulge></create-vulge>
       </div>
     </div>
   </div>
-  </div>
-  <!-- Vulge Modal -->
-  <div *ngIf="currentUser" class="modal fade" id="vulgeModal" tabindex="-1" role="dialog" aria-labelledby="vulgeModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body page-login-main">
-          <create-vulge></create-vulge>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>

@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
-
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     showPasswordReset:boolean = false;
     errorMessage:string;
     resetEmail:string
-    constructor(public authService: AuthenticationService, public changeDetector: ChangeDetectorRef, public zone: NgZone) { 
+    constructor(public authService: AuthenticationService, public changeDetector: ChangeDetectorRef, public activeModal: NgbActiveModal) { 
     }
     
 
@@ -24,17 +24,15 @@ export class LoginComponent implements OnInit {
 
     login(provider:string){
         this.showSpinner = true;
-        this.zone.run(() => {
-            this.authService.login(provider, this.loginModel).then(authState => {
-                if(authState){
-                    this.showSpinner = false;
-                    this.errorMessage = null;
-                    this.loginModel = {};
-                }
-            }, error => {
-                this.showSpinner = false;
-                this.errorMessage = error.message; 
-            });
+        this.authService.login(provider, this.loginModel).then(authState => {
+            if(authState){
+                this.errorMessage = null;
+                this.loginModel = {};
+                this.toggleSpinner(false);
+            }
+        }, error => {
+            this.errorMessage = error.message; 
+            this.toggleSpinner(false);
         });
     }
 

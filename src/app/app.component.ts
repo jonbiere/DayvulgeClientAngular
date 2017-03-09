@@ -1,9 +1,12 @@
 //root site stylesheet.
 require('./styles/root.scss')
 import { Component, ViewEncapsulation, HostListener } from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFire, FirebaseAuthState, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { AuthenticationService, VulgeService, HelperService } from './services'
 import { Profile } from './viewModels';
+import {LoginComponent} from './login';
+
 
 
 @Component({
@@ -22,7 +25,7 @@ export class AppComponent {
   currentUserNotifications: FirebaseListObservable<any>;
   sideMenuOpen: boolean;
 
-  constructor(public af: AngularFire, public authService: AuthenticationService, public vulgeService: VulgeService, public helperService: HelperService) {
+  constructor(private af: AngularFire, private authService: AuthenticationService, private vulgeService: VulgeService, private helperService: HelperService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -39,6 +42,10 @@ export class AppComponent {
         this.currentUserNotifications = null;
       }
     });
+  }
+
+  openLoginModal(){
+    this.modalService.open(LoginComponent);
   }
 
   logout() {

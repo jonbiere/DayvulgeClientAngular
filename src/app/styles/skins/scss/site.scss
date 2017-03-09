@@ -11,7 +11,6 @@
 @import 'sections/site-navbar';
 @import 'sections/site-menubar';
 @import 'sections/site-menu';
-
 @import 'sections/site-sidebar';
 @import 'sections/site-action';
 @import 'sections/page';
@@ -24,14 +23,13 @@
 @import 'layouts/layout-full';
 @import 'layouts/layout-boxed';
 @import 'layouts/layout-print';
-@import "layouts/site-navbar-collapse-show";
-@import "layouts/site-navbar-small";
-@import "layouts/site-menubar-fold";
-@import "layouts/site-menubar-open";
-@import "layouts/site-menubar-push";
-@import "layouts/site-menubar-disableHover";
-@import "layouts/responsive-phone";
-
+@import 'layouts/site-navbar-collapse-show';
+@import 'layouts/site-navbar-small';
+@import 'layouts/site-menubar-fold';
+@import 'layouts/site-menubar-open';
+@import 'layouts/site-menubar-push';
+@import 'layouts/site-menubar-disableHover';
+@import 'layouts/responsive-phone';
 
 // Components
 // -------------------------------
@@ -121,16 +119,16 @@
 @import 'components/color-selector';
 //}
 //@if $use-helper-width == true {
-// @import 'components/helper-width';
+//@import 'components/helper-width';
 //}
 //@if $use-helper-height == true {
-// @import 'components/helper-height';
+//@import 'components/helper-height';
 //}
 //@if $use-helper-margin == true {
-// @import 'components/helper-margin';
+//@import 'components/helper-margin';
 //}
 //@if $use-helper-padding == true {
-// @import 'components/helper-padding';
+//@import 'components/helper-padding';
 //}
 //@if $use-example == true {
 @import 'components/example';

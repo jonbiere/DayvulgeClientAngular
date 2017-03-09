@@ -30,7 +30,10 @@
 @import 'bootstrap_extend/list-group';
 @import 'bootstrap_extend/close';
 @import 'bootstrap_extend/card';
-@import 'bootstrap_extend/font-weight';
+
+// @if $font-weight-override == true {
+  @import 'bootstrap_extend/font-weight';
+// }
 
 // Components w/ JavaScript
 // -------------------------------
