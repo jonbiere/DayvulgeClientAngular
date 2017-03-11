@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFire } from 'angularfire2'
-import { AuthenticationService, VulgeService} from '../services'
-import { Vulge } from '../viewModels'
+import { AuthenticationService, VulgeService} from '../../services'
+import { Vulge } from '../../viewModels'
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import * as firebase from 'firebase'
 
 @Component({
@@ -11,7 +12,7 @@ import * as firebase from 'firebase'
 export class CreateVulgeComponent implements OnInit {
     currentUser:firebase.User = null;
     vulgeModel:Vulge;
-    constructor(public af:AngularFire, public authService: AuthenticationService, public vulgeService:VulgeService) {
+    constructor(public af:AngularFire, public authService: AuthenticationService, public vulgeService:VulgeService, public activeModal: NgbActiveModal) {
         this.vulgeModel = new Vulge();
     }
 

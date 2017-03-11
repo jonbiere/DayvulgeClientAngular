@@ -3,9 +3,10 @@ require('./styles/root.scss')
 import { Component, ViewEncapsulation, HostListener } from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFire, FirebaseAuthState, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
-import { AuthenticationService, VulgeService, HelperService } from './services'
+import { AuthenticationService, VulgeService, HelperService } from './services';
 import { Profile } from './viewModels';
-import {LoginComponent} from './login';
+import {LoginComponent, CreateVulgeComponent} from './modals';
+
 
 
 
@@ -46,6 +47,10 @@ export class AppComponent {
 
   openLoginModal(){
     this.modalService.open(LoginComponent);
+  }
+
+  openCreateVulgeModal(){
+    this.modalService.open(CreateVulgeComponent);
   }
 
   logout() {

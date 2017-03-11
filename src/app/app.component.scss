@@ -19,6 +19,10 @@ body{
     }
 }
 .appContainer{
+
+    .dropdown-toggle::after{
+        content: none;
+    }
     .hamburger{
         font-size:20px;
     }
@@ -41,7 +45,7 @@ body{
         }
         
     }
-    .vote-pill{
+    .btn .badge-pill{
         position: relative;
         top: -10px;
         margin: 0 -0.8em;

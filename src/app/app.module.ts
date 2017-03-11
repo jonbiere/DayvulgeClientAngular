@@ -23,8 +23,7 @@ import { AboutComponent } from './about';
 import { ProfileComponent } from './profile';
 import { TimelineComponent } from './timeline';
 import { NoContentComponent } from './no-content';
-import { CreateVulgeComponent } from './vulge';
-import { LoginComponent, EqualValidator} from './login';
+import { LoginComponent, EqualValidator, CreateVulgeComponent} from './modals';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ReversePipe, NotificationPipe, UserVotePipe} from './pipes';
 
@@ -84,7 +83,8 @@ type StoreType = {
     UserVotePipe
   ],
   entryComponents:[
-     LoginComponent
+     LoginComponent,
+     CreateVulgeComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

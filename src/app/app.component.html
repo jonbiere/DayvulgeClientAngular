@@ -24,7 +24,7 @@
             <a [routerLink]="['timeline']" class="nav-link" aria-expanded="false" role="button">Timeline</a>
           </li>-->
           <li *ngIf="currentUser" class="nav-item">
-            <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#vulgeModal">
+            <button (click)="openCreateVulgeModal();" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#vulgeModal">
               <i class="icon fa-pencil-square-o" aria-hidden="true"></i>
               Write a Vulge
             </button>
@@ -33,15 +33,15 @@
         <!-- End Navbar Toolbar -->
         <!-- Navbar Toolbar Right -->
         <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
-          <li *ngIf="currentUser" class="nav-item dropdown">
-            <button type="button" class="nav-link btn btn-link" data-toggle="dropdown" aria-expanded="false">
+          <li  *ngIf="currentUser" ngbDropdown class="nav-item dropdown">
+            <button ngbDropdownToggle type="button" class="nav-link btn btn-link"  aria-expanded="false">
               <i class="icon fa-thumbs-o-up" aria-hidden="true"></i>
-              <span class="tag tag-pill tag-info up vote-pill">{{(profile | async)?.votes}}</span>
+              <span class="badge badge-pill badge-info up">{{(profile | async)?.votes}}</span>
             </button>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
               <div class="dropdown-menu-header" role="presentation">
                 <h5>VOTES REMAINING:</h5>
-                <span class="tag tag-round tag-info">{{(profile | async)?.votes}}</span>
+                <span class="badge badge-round badge-info up">{{(profile | async)?.votes}}</span>
               </div>
               <div class="list-group" role="presentation">
                 <div data-role="container">
@@ -74,16 +74,15 @@
               </div>
             </div>
           </li>
-          <li *ngIf="currentUser" class="nav-item dropdown notificationMenuItem">
-            <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" title="Notifications" aria-expanded="false" data-animation="scale-up"
-              role="button">
+          <li *ngIf="currentUser" ngbDropdown class="nav-item dropdown notificationMenuItem">
+            <button ngbDropdownToggle class="nav-link btn btn-link" data-toggle="dropdown" title="Notifications" aria-expanded="false">
               <i class="icon md-notifications" aria-hidden="true"></i>
-              <span class="tag tag-pill tag-danger up">{{(currentUserNotifications | async | notificationFilter)?.length}}</span>
-              </a>
+              <span class="badge badge-pill badge-danger up">{{(currentUserNotifications | async | notificationFilter)?.length}}</span>
+            </button>
               <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
                 <div class="dropdown-menu-header">
                   <h5>NOTIFICATIONS</h5>
-                  <span class="tag tag-round tag-danger">New {{(currentUserNotifications | async | notificationFilter)?.length}}</span>
+                  <span class="badge badge-round badge-danger">New {{(currentUserNotifications | async | notificationFilter)?.length}}</span>
                 </div>
                 <div class="list-group">
                   <div data-role="container">
@@ -106,8 +105,8 @@
                 </div>
               </div>
           </li>
-          <li *ngIf="currentUser" class="nav-item dropdown">
-            <button type="button" data-toggle="dropdown" aria-expanded="false" class="nav-link btn btn-link">
+          <li *ngIf="currentUser" ngbDropdown class="nav-item dropdown">
+            <button ngbDropdownToggle type="button" aria-expanded="false" class="nav-link btn btn-link">
               {{currentUser.email}}
               <i class="icon md-chevron-down" aria-hidden="true"></i>
             </button>
@@ -178,14 +177,3 @@
   </div>
 </footer>
 <template ngbModalContainer></template>
-
-<!-- Vulge Modal -->
-<div *ngIf="currentUser" class="modal fade" id="vulgeModal" tabindex="-1" role="dialog" aria-labelledby="vulgeModal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body page-login-main">
-        <create-vulge></create-vulge>
-      </div>
-    </div>
-  </div>
-</div>
