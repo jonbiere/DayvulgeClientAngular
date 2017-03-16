@@ -3,3 +3,4 @@ export * from './authentication.service';
 export * from './toastr.service';
 export * from './firebaseRef.service';
 export * from './helper.service';
+export * from './vulge.service';

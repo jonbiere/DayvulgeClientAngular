@@ -23,6 +23,9 @@ export class ErrorCodeService {
 
             case ErrorCodes.user_create_account_to_vote:
                 return "Please login or create an account to vote.";
+            
+            case ErrorCodes.voting_period_expired:
+                return "The voting period has expired."
 
             case ErrorCodes.internal_error:
                 return "There was an error processing your request.";
@@ -40,5 +43,6 @@ export enum ErrorCodes{
    "auth/wrong-auth-provider",
    "user_no_votes",
    "user_create_account_to_vote",
+   "voting_period_expired",
    "internal_error"
 }

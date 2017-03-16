@@ -21,7 +21,7 @@ export class FirebaseRefService {
 
     getCurrentVulgeCollectionKey(): Promise<string> {
         if (this.currentVulgeCollectionKey) {
-            Promise.resolve(this.currentVulgeCollectionKey);
+            return Promise.resolve(this.currentVulgeCollectionKey);
         }
         else {
             //Go try and get it again in case of unlikely race condition.
