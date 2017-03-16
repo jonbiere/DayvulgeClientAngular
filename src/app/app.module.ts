@@ -28,7 +28,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { ReversePipe, NotificationPipe, UserVotePipe} from './pipes';
 
 //Services
-import { AuthenticationService, ToasterService, ErrorCodeService, VulgeService, HelperService} from './services';
+import { AuthenticationService, ToasterService, ErrorCodeService, FirebaseRefService, HelperService} from './services';
 
 //Directives
 import { XLarge } from './home/x-large';
@@ -51,7 +51,7 @@ const APP_PROVIDERS = [
   AuthenticationService,
   ToasterService,
   ErrorCodeService,
-  VulgeService,
+  FirebaseRefService,
   HelperService
 ];
 

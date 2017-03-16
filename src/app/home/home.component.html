@@ -9,9 +9,9 @@
               <i class="icon md-more"></i>
             </div>
             <blockquote class="blockquote">
-              <p class="mb-0">We have elected the first orange presedent!!</p>
+              <p class="mb-0">{{(activeWinner | async)?.vulgeText}}</p>
               <footer class="blockquote-footer">
-                jon.biere@gmail.com
+                {{(activeWinner | async)?.userName}}
               </footer>
             </blockquote>
           </div>

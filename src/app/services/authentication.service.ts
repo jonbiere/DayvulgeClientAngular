@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState} from 'angularfire2';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { ToasterService,  } from './toastr.service';
-import { VulgeService } from './vulge.service';
-import {ErrorCodeService} from './errorcode.service'
+import { FirebaseRefService } from './firebaseRef.service';
+import {ErrorCodeService, ErrorCodes} from './errorcode.service'
 import {Profile} from '../viewModels';
 import {AppSettings} from '../appSettings';
 import * as firebase from 'firebase';
@@ -13,7 +13,7 @@ import * as firebase from 'firebase';
 export class AuthenticationService {
     currentuser:BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User>(null);
 
-    constructor(public af: AngularFire, public toastr:ToasterService, public errorCodeService: ErrorCodeService, public vulgeServie: VulgeService) {
+    constructor(public af: AngularFire, public toastr:ToasterService, public errorCodeService: ErrorCodeService, public firebaseRefService: FirebaseRefService) {
         af.auth.subscribe(authState => {
             if(!authState){
                 this.currentuser.next(null);
@@ -82,10 +82,10 @@ export class AuthenticationService {
      }
 
      createUserProfileIfNeeded(user:firebase.User){
-        this.vulgeServie.getCurrentUserProfile(user.uid, true).take(1).subscribe(userProfile => {
+        this.firebaseRefService.getCurrentUserProfile(user.uid, true).take(1).subscribe(userProfile => {
             if(!userProfile.val()){
                 let newPofile = new Profile(user.email, firebase.database['ServerValue']['TIMESTAMP'], AppSettings.VotesPerDay);
-                this.vulgeServie.getCurrentUserProfile(user.uid, false).set(newPofile);
+                this.firebaseRefService.getCurrentUserProfile(user.uid, false).set(newPofile);
             }
         });       
     }
@@ -100,19 +100,20 @@ export class AuthenticationService {
                         this.toastr.info(`An email has been sent to ${email}`);
                         result.next(true);
                     }, error => {
-                        var e = error as any;
-                        this.toastr.error(this.errorCodeService.getErrorMessage(e.code));
+                        let e = error as any;
+                        let code:string = e.code || 'auth/internal-error'
+                        this.toastr.error(this.errorCodeService.getErrorMessage(ErrorCodes[code]));
                         result.next(false);
                     });
                 }
                 else{
                     result.next(false);
-                    this.toastr.error(this.errorCodeService.getErrorMessage('auth/wrong-auth-provider'));
+                    this.toastr.error(this.errorCodeService.getErrorMessage(ErrorCodes['auth/wrong-auth-provider']));
                 }
             } 
             else{
                 result.next(false);
-                this.toastr.error(this.errorCodeService.getErrorMessage('auth/user-not-found'));
+                this.toastr.error(this.errorCodeService.getErrorMessage(ErrorCodes['auth/user-not-found']));
             }           
         },
           error => {  

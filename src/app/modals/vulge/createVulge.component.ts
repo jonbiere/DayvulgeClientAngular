@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFire } from 'angularfire2'
-import { AuthenticationService, VulgeService } from '../../services'
+import { AuthenticationService, FirebaseRefService } from '../../services'
 import { Vulge } from '../../viewModels'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as firebase from 'firebase'
@@ -12,7 +12,7 @@ import * as firebase from 'firebase'
 export class CreateVulgeComponent implements OnInit {
     currentUser: firebase.User = null;
     vulgeModel: Vulge;
-    constructor(public af: AngularFire, public authService: AuthenticationService, public vulgeService: VulgeService, public activeModal: NgbActiveModal) {
+    constructor(public af: AngularFire, public authService: AuthenticationService, public firebaseRefService: FirebaseRefService, public activeModal: NgbActiveModal) {
         this.vulgeModel = new Vulge();
     }
 
@@ -24,7 +24,7 @@ export class CreateVulgeComponent implements OnInit {
 
     createVulge(event: Event) {
         event.preventDefault();
-        this.vulgeService.getCurrentVulgeCollection().then(vulgeCollection => {
+        this.firebaseRefService.getCurrentVulgeCollection().then(vulgeCollection => {
             if (vulgeCollection) {
                 this.vulgeModel.userKey = this.currentUser.uid;
                 this.vulgeModel.userName = this.currentUser.email;

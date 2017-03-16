@@ -3,7 +3,7 @@ require('./styles/root.scss')
 import { Component, ViewEncapsulation, HostListener } from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { AngularFire, FirebaseAuthState, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
-import { AuthenticationService, VulgeService, HelperService } from './services';
+import { AuthenticationService, FirebaseRefService, HelperService } from './services';
 import { Profile } from './viewModels';
 import {LoginComponent, CreateVulgeComponent} from './modals';
 
@@ -26,16 +26,16 @@ export class AppComponent {
   currentUserNotifications: FirebaseListObservable<any>;
   sideMenuOpen: boolean;
 
-  constructor(private af: AngularFire, private authService: AuthenticationService, private vulgeService: VulgeService, private helperService: HelperService, private modalService: NgbModal) {
+  constructor(private af: AngularFire, private authService: AuthenticationService, private firebaseRefService: FirebaseRefService, private helperService: HelperService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
     this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
       if (user) {
-        this.profile = this.vulgeService.getCurrentUserProfile(user.uid, false);
-        this.currentUserVotes = this.vulgeService.getCurrentUserVotes(this.currentUser.uid);
-        this.currentUserNotifications = this.vulgeService.getUserNotificationCollection(this.currentUser.uid);
+        this.profile = this.firebaseRefService.getCurrentUserProfile(user.uid, false);
+        this.currentUserVotes = this.firebaseRefService.getCurrentUserVotes(this.currentUser.uid);
+        this.currentUserNotifications = this.firebaseRefService.getUserNotificationCollection(this.currentUser.uid);
       }
       else {
         this.profile = null;
@@ -60,7 +60,7 @@ export class AppComponent {
   }
 
   markNotificationsRead(type) {
-    this.vulgeService.getUserNotificationCollection(this.currentUser.uid).take(1).subscribe(notifications => {
+    this.firebaseRefService.getUserNotificationCollection(this.currentUser.uid).take(1).subscribe(notifications => {
       if (notifications && notifications.length) {
         let dirtyItems = notifications.filter(item => {
           return !item.hasSeen && item.type === type;

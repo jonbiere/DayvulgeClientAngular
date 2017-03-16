@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseAuthState, FirebaseListObservable } from 'angularfire2';
-import { AuthenticationService, VulgeService, ToasterService, ErrorCodeService } from '../services/';
+import { AuthenticationService, FirebaseRefService, ToasterService, ErrorCodeService, ErrorCodes } from '../services/';
 import { UserVote, Vulge, Notification, NotificationType } from '../viewModels';
 import { Subscription } from 'rxjs';
 import * as firebase from 'firebase';
@@ -15,8 +15,9 @@ export class HomeComponent {
   currentUser: firebase.User;
   vulgeCollection: FirebaseListObservable<any>;
   showSpinner: boolean;
+  activeWinner: any;
   listers: Array<Subscription>;
-  constructor(public authService: AuthenticationService, public af: AngularFire, public vulgeService: VulgeService, public toastr: ToasterService) {
+  constructor(public authService: AuthenticationService, public af: AngularFire, public firebaseRefService: FirebaseRefService, public toastr: ToasterService, public errorCodeService:ErrorCodeService) {
   }
 
   ngOnInit() {
@@ -26,7 +27,8 @@ export class HomeComponent {
       this.currentUser = user;
     });
 
-    this.vulgeService.getCurrentVulgeCollection().then(vulgeCollection => {
+    this.activeWinner = this.firebaseRefService.getActiveVulgeWinner();
+    this.firebaseRefService.getCurrentVulgeCollection().then(vulgeCollection => {
       this.vulgeCollection = vulgeCollection;
       if (this.vulgeCollection) {
         this.listers.push(this.vulgeCollection.subscribe(data => {
@@ -48,13 +50,13 @@ export class HomeComponent {
 
   vote(vulgeKey: string, up: boolean) {
     if (this.currentUser) {
-      this.vulgeService.getCurrentUserProfile(this.currentUser.uid, true).take(1).subscribe(userProfile => {
+      this.firebaseRefService.getCurrentUserProfile(this.currentUser.uid, true).take(1).subscribe(userProfile => {
         let profile = userProfile.val();
         if (profile && profile.votes > 0) {
-          this.vulgeService.getCurrentUserProfile(this.currentUser.uid, false).update({
+          this.firebaseRefService.getCurrentUserProfile(this.currentUser.uid, false).update({
             votes: --profile.votes
           }).then(() => {
-            this.vulgeService.getVulgeByKey(vulgeKey, false).then(vulgeObs => {
+            this.firebaseRefService.getVulgeByKey(vulgeKey, false).then(vulgeObs => {
               if (vulgeObs) {
                 vulgeObs.take(1).subscribe(vulge => {
                   if (vulge.$exists()) {
@@ -71,17 +73,17 @@ export class HomeComponent {
           });
         }
         else {
-          this.toastr.warning(ErrorCodeService.AppErrors.NO_VOTES);
+          this.toastr.warning(this.errorCodeService.getErrorMessage(ErrorCodes.user_no_votes));
         }
       });
     }
     else {
-      this.toastr.warning(ErrorCodeService.AppErrors.CREATE_ACCOUNT_TO_VOTE);
+      this.toastr.warning(this.errorCodeService.getErrorMessage(ErrorCodes.user_create_account_to_vote));
     }
   }
 
   registerVulgeVote(vulge, up: boolean) {
-    this.vulgeService.getUserVulgeVotesCollection(vulge.userKey, vulge.$key).push({
+    this.firebaseRefService.getUserVulgeVotesCollection(vulge.userKey, vulge.$key).push({
       userKey: this.currentUser.uid,
       voteUp: up,
       profilePic: this.currentUser.photoURL
@@ -109,7 +111,7 @@ export class HomeComponent {
 
   registerVoteNotification(vulge: any, up: boolean) {
     //todo this should probably be handled on the backend. Otherwise user can manipulate notification message.
-    this.vulgeService.getUserNotificationCollection(vulge.userKey).push(
+    this.firebaseRefService.getUserNotificationCollection(vulge.userKey).push(
       new Notification(vulge.userKey,
         this.currentUser.email,
         firebase.database['ServerValue']['TIMESTAMP'],
