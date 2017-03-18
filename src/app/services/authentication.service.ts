@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState} from 'angularfire2';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
-import { ToasterService,  } from './toastr.service';
+import { ToasterService} from './toastr.service';
 import { FirebaseRefService } from './firebaseRef.service';
 import {ErrorCodeService, ErrorCodes} from './errorcode.service'
 import {Profile} from '../viewModels';
