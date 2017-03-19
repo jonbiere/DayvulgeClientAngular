@@ -39,10 +39,15 @@ body{
     }
 
     .notificationsMenu{
-        width:700px;
+        width:700px;   
         .media-body{
             padding: 0px 10px;
-        }
+        }     
+    }
+    .userVotesMenu{
+        .media-body{
+            padding: 0px 10px;
+        }  
     }
 
     .dropdown-toggle::after{
