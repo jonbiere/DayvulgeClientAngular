@@ -10,7 +10,7 @@
         <span class="hamburger-bar"></span>
         </button>
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-          <img class="navbar-brand-logo" src="../assets/images/logo.png" title="Remark">
+          <img class="navbar-brand-logo" src="/assets/images/logo.png" title="Remark">
           <span class="navbar-brand-text hidden-xs-down"> Remark</span>
         </div>
     </div>
@@ -49,7 +49,7 @@
                       <div class="media">
                         <div class="media-left p-r-10">
                           <span class="avatar avatar-sm avatar-online">
-                            <img src="../../global/portraits/2.jpg" alt="..." />
+                            <img [src]="record.photoURL" alt="..." />
                             <i></i>
                           </span>
                         </div>
@@ -105,9 +105,10 @@
               </div>
           </li>
           <li *ngIf="currentUser" ngbDropdown class="nav-item dropdown">
-            <button ngbDropdownToggle type="button" aria-expanded="false" class="nav-link btn btn-link">
-              {{currentUser.email}}
-              <i class="icon md-chevron-down" aria-hidden="true"></i>
+            <button ngbDropdownToggle type="button" aria-expanded="false" class="nav-link btn btn-link profilePhotoCircle">             
+              <img class="profilePhotoCircle" [src]="currentUser.photoURL" alt="">    
+              <!--{{currentUser.email}}
+              <i class="icon md-chevron-down" aria-hidden="true"></i>-->
             </button>
             <div class="dropdown-menu" role="menu">
               <a class="dropdown-item" [routerLink]="['profile']" role="menuitem"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
@@ -121,7 +122,7 @@
         <!-- End Navbar Toolbar Right -->
         <div class="navbar-brand navbar-brand-center">
           <a [routerLink]="['']">
-            <img class="navbar-brand-logo" src="../assets/images/logo.png" title="Remark">
+            <img class="navbar-brand-logo" src="/assets/images/logo.png" title="Remark">
           </a>
         </div>
         <button *ngIf="!currentUser" (click)="openLoginModal()" type="button" class="loginButton btn btn-link navbar-right navbar-btn">
@@ -132,17 +133,17 @@
     </div>
   </nav>
   <div class="site-menubar">
-    <div class="site-menubar-header">
+    <div *ngIf="currentUser" class="site-menubar-header">
       <div class="cover overlay">
         <img class="cover-image" src="../../assets//examples/images/dashboard-header.jpg" alt="...">
         <div class="overlay-panel vertical-align overlay-background">
           <div class="vertical-align-middle">
             <a class="avatar avatar-lg" href="javascript:void(0)">
-              <img src="../../../global/portraits/1.jpg" alt="">
+              <img [src]="currentUser.photoURL" alt="">
             </a>
             <div class="site-menubar-info">
-              <h5 class="site-menubar-user">Machi</h5>
-              <p class="site-menubar-email">machidesign@gmail.com</p>
+              <h5 class="site-menubar-user">{{currentUser.displayName}}</h5>
+              <p class="site-menubar-email">{{currentUser.email}}</p>
             </div>
           </div>
         </div>

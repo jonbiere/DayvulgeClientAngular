@@ -32,6 +32,7 @@ export class AppComponent {
   ngOnInit() {
     this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
+     
       if (user) {
         this.profile = this.firebaseRefService.getCurrentUserProfile(user.uid, false);
         this.currentUserVotes = this.firebaseRefService.getCurrentUserVotes(this.currentUser.uid);

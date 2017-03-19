@@ -24,6 +24,7 @@ export class CreateVulgeComponent implements OnInit {
 
     createVulge(event: Event) {
         event.preventDefault();
+        this.activeModal.close();
         this.firebaseRefService.getCurrentVulgeCollection().then(vulgeCollection => {
             if (vulgeCollection) {
                 this.vulgeModel.userKey = this.currentUser.uid;

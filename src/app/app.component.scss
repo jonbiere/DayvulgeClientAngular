@@ -20,6 +20,20 @@ body{
 }
 .appContainer{
 
+    .profilePhotoCircle{     
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        
+    
+       img{ -webkit-border-radius: 50%;
+        border-radius: 50%;
+        height:40px;
+        width: 40px;
+        background-color: #dfdfdf;
+        padding: 8px;
+       }
+        
+    }
     .dropdown-toggle::after{
         content: none;
     }
@@ -33,11 +47,11 @@ body{
         margin-right: 2.071rem;
     }
     
-    @include media-breakpoint-up(lg) {
-            .notificationMenuItem{
-                margin-right:2em;
-            }       
-    }
+    // @include media-breakpoint-up(lg) {
+    //         .notificationMenuItem{
+    //             margin-right:2em;
+    //         }       
+    // }
    
     blockquote{
         p{

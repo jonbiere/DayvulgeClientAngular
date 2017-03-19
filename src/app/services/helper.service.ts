@@ -25,5 +25,9 @@ export class HelperService {
   getArrayOfNLenth(length:number){
         return Array(length).fill(1);
   }
+
+  isLetter(str) {
+    return str.length === 1 && str.match(/[a-z]/i);
+  }
     
 }

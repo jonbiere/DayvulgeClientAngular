@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { ToasterService} from './toastr.service';
 import { FirebaseRefService } from './firebaseRef.service';
 import {ErrorCodeService, ErrorCodes} from './errorcode.service'
+import {HelperService} from './helper.service';
 import {Profile} from '../viewModels';
 import {AppSettings} from '../appSettings';
 import * as firebase from 'firebase';
@@ -13,7 +14,7 @@ import * as firebase from 'firebase';
 export class AuthenticationService {
     currentuser:BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User>(null);
 
-    constructor(public af: AngularFire, public toastr:ToasterService, public errorCodeService: ErrorCodeService, public firebaseRefService: FirebaseRefService) {
+    constructor(public af: AngularFire, public toastr:ToasterService, public errorCodeService: ErrorCodeService, public firebaseRefService: FirebaseRefService, public helperService:HelperService) {
         af.auth.subscribe(authState => {
             if(!authState){
                 this.currentuser.next(null);
@@ -26,13 +27,13 @@ export class AuthenticationService {
                 else{
                     //jQuery('#loginModal').modal('hide');
                     this.currentuser.next(authState.auth);
-                    this.createUserProfileIfNeeded(authState.auth);
                 }
             } 
             else{
                 //jQuery('#loginModal').modal('hide');
+                this.createUserProfileIfNeeded(authState);
                 this.currentuser.next(authState.auth);
-                this.createUserProfileIfNeeded(authState.auth);
+                
             }   
         });
      }
@@ -78,15 +79,25 @@ export class AuthenticationService {
      }
 
      createAccount(registerModel:any):Observable<FirebaseAuthState>{
-        return Observable.fromPromise(<Promise<FirebaseAuthState>> this.af.auth.createUser(registerModel));
+        return Observable.fromPromise(<Promise<FirebaseAuthState>> this.af.auth.createUser(registerModel).then(authState=>{
+            this.createUserProfileIfNeeded(authState);
+        }));
      }
 
-     createUserProfileIfNeeded(user:firebase.User){
-        this.firebaseRefService.getCurrentUserProfile(user.uid, true).take(1).subscribe(userProfile => {
-            if(!userProfile.val()){
+     createUserProfileIfNeeded(authState:FirebaseAuthState){
+        let user = authState.auth;   
+        this.firebaseRefService.getCurrentUserProfile(user.uid, false).take(1).subscribe(userProfile => {     
+            if(!userProfile.$exists()){
                 let newPofile = new Profile(user.email, firebase.database['ServerValue']['TIMESTAMP'], AppSettings.VotesPerDay);
                 this.firebaseRefService.getCurrentUserProfile(user.uid, false).set(newPofile);
             }
+            let displayName = user.email.split('@')[0];
+            let letter = user.email[0].toLowerCase();
+            let photoFile = this.helperService.isLetter(letter) ? letter : 'unknown';
+            user.updateProfile({
+                displayName:displayName,
+                photoURL: `/assets/images/profile/${photoFile}.svg`
+            });
         });       
     }
 

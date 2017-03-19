@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
                 this.errorMessage = null;
                 this.loginModel = {};
                 this.toggleSpinner(false);
+                this.activeModal.close();
             }
         }, error => {
             this.errorMessage = error.message; 
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
             this.toggleSpinner(false);
             this.toggleRegister(false);
             authState.auth.sendEmailVerification();
+            this.activeModal.close();
         }, error => {
             this.errorMessage = error.message; 
             this.toggleSpinner(false);
@@ -58,6 +60,7 @@ export class LoginComponent implements OnInit {
             if(result){
                 this.toggleSpinner(false);
                 this.togglePasswordReset(false);
+                this.activeModal.close();
             }
             else{
                 this.toggleSpinner(false);
