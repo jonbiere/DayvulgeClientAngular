@@ -23,6 +23,7 @@ import { AboutComponent } from './about';
 import { ProfileComponent } from './profile';
 import { TimelineComponent } from './timeline';
 import { NoContentComponent } from './no-content';
+import { CountdownComponent } from './countdown';
 import { LoginComponent, EqualValidator, CreateVulgeComponent} from './modals';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ReversePipe, NotificationPipe, UserVotePipe} from './pipes';
@@ -79,6 +80,7 @@ type StoreType = {
     EqualValidator,
     SpinnerComponent,
     CreateVulgeComponent,
+    CountdownComponent,
     ReversePipe,
     NotificationPipe,
     UserVotePipe
