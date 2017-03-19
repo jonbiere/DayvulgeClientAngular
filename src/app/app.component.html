@@ -1,12 +1,11 @@
 <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <!--[ngClass]="{'site-menubar-open': sideMenuOpen, 'site-menubar-fixed': sideMenuOpen}"-->
-<div class="appContainer" >
+<div class="appContainer" [ngClass]="{'site-menubar-open': sideMenuOpen, 'site-menubar-fixed': sideMenuOpen}" >
   <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse" role="navigation">
     <div class="navbar-header">
-       <!--(click)="toggleMobileSideMenu() [ngClass]="{'hided': !sideMenuOpen}""-->
-      <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided" data-toggle="menubar">
+
+      <button (click)="toggleMobileSideMenu()" [ngClass]="{'hided': !sideMenuOpen}" type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided" data-toggle="menubar">
         <span class="sr-only">Toggle navigation</span>
         <span class="hamburger-bar"></span>
         </button>

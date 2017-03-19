@@ -12,7 +12,8 @@ export class VulgeService {
     private readonly path: string;
     constructor(public af: AngularFire, public errorCodeService: ErrorCodeService, public toastr: ToasterService, private http: Http) {
         //this.path = 'http://localhost:3001/api/vote';
-        this.path = 'http://dayvulgeserver-dev.taii6mwqn2.us-east-2.elasticbeanstalk.com/api/vote';
+        //this.path = 'http://dayvulgeserver-dev.taii6mwqn2.us-east-2.elasticbeanstalk.com/api/vote';
+        this.path = 'https://dev.api.dayvulge.com/api/vote';
     }
     public vote(vulgeKey: string, up: boolean): firebase.Promise_Instance<Observable<any>> {
         return firebase.auth().currentUser.getToken(false).then(userToken => {
