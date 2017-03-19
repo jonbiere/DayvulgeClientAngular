@@ -106,7 +106,7 @@
           </li>
           <li *ngIf="currentUser" ngbDropdown class="nav-item dropdown">
             <button ngbDropdownToggle type="button" aria-expanded="false" class="nav-link btn btn-link profilePhotoCircle">             
-              <img class="profilePhotoCircle" [src]="currentUser.photoURL" alt="">    
+              <img [src]="currentUser.photoURL" alt="">    
               <!--{{currentUser.email}}
               <i class="icon md-chevron-down" aria-hidden="true"></i>-->
             </button>
@@ -135,7 +135,6 @@
   <div class="site-menubar">
     <div *ngIf="currentUser" class="site-menubar-header">
       <div class="cover overlay">
-        <img class="cover-image" src="../../assets//examples/images/dashboard-header.jpg" alt="...">
         <div class="overlay-panel vertical-align overlay-background">
           <div class="vertical-align-middle">
             <a class="avatar avatar-lg" href="javascript:void(0)">
@@ -150,18 +149,41 @@
       </div>
     </div>
     <div class="site-menubar-body">
-      <div>
-        <div>
-          <ul class="site-menu" data-plugin="menu">
-            <li class="site-menu-item">
-              <a class="animsition-link" href="../index.html">
-                <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
-                <span class="site-menu-title">Dashboard</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <ul *ngIf="!currentUser" class="site-menu" data-plugin="menu">
+        <li class="site-menu-item">
+          <a (click)="openLoginModal()" class="animsition-link" href="javascript:void(0)">
+            <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+            <span class="site-menu-title">Login</span>
+          </a>
+        </li>
+      </ul>        
+      <ul *ngIf="currentUser" class="site-menu" data-plugin="menu">
+        <li class="site-menu-item">
+          <a class="animsition-link" [routerLink]="['']">
+            <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+            <span class="site-menu-title">Home</span>
+          </a>
+        </li>
+        <li class="site-menu-item">
+          <a class="animsition-link" [routerLink]="['profile']">
+            <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+            <span class="site-menu-title">Profile</span>
+          </a>
+        </li>
+        <li class="site-menu-item">
+          <a class="animsition-link"[routerLink]="['timeline']">
+            <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+            <span class="site-menu-title">Timeline</span>
+          </a>
+        </li>
+        <li (click)="logout()" class="site-menu-item">
+          <a class="animsition-link"[routerLink]="['timeline']">
+            <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+            <span class="site-menu-title">Logout</span>
+          </a>
+        </li>
+      </ul>    
+      
     </div>
   </div>
   <main>
