@@ -1,11 +1,12 @@
 //root site stylesheet.
 require('./styles/root.scss')
 import { Component, ViewEncapsulation, HostListener } from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFire, FirebaseAuthState, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { AuthenticationService, FirebaseRefService, HelperService } from './services';
 import { Profile } from './viewModels';
-import {LoginComponent, CreateVulgeComponent} from './modals';
+import { LoginComponent, CreateVulgeComponent } from './modals';
 
 
 
@@ -25,14 +26,16 @@ export class AppComponent {
   currentUserVotes: FirebaseListObservable<any>;
   currentUserNotifications: FirebaseListObservable<any>;
   sideMenuOpen: boolean;
+  isMobile: boolean;
 
-  constructor(private af: AngularFire, private authService: AuthenticationService, private firebaseRefService: FirebaseRefService, private helperService: HelperService, private modalService: NgbModal) {
+  constructor(private af: AngularFire, private authService: AuthenticationService, private firebaseRefService: FirebaseRefService, private helperService: HelperService, private modalService: NgbModal, private router: Router) {
+    this.isMobile = this.helperService.isMobile();
   }
 
   ngOnInit() {
     this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
-     
+
       if (user) {
         this.profile = this.firebaseRefService.getCurrentUserProfile(user.uid, false);
         this.currentUserVotes = this.firebaseRefService.getCurrentUserVotes(this.currentUser.uid);
@@ -43,14 +46,18 @@ export class AppComponent {
         this.currentUserVotes = null;
         this.currentUserNotifications = null;
       }
+
+      this.router.events.subscribe( event =>{
+        this.sideMenuOpen = false;
+      });
     });
   }
 
-  openLoginModal(){
+  openLoginModal() {
     this.modalService.open(LoginComponent);
   }
 
-  openCreateVulgeModal(){
+  openCreateVulgeModal() {
     this.modalService.open(CreateVulgeComponent);
   }
 
@@ -81,6 +88,8 @@ export class AppComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.sideMenuOpen = false;
+    if (!this.isMobile) {
+      this.sideMenuOpen = false;
+    }
   }
 }

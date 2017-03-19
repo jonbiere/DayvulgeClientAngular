@@ -10,8 +10,8 @@
         <span class="hamburger-bar"></span>
         </button>
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-          <img class="navbar-brand-logo" src="/assets/images/logo.png" title="Remark">
-          <span class="navbar-brand-text hidden-xs-down"> Remark</span>
+          <img class="navbar-brand-logo" src="/assets/images/logo.png" title="Dayvulge">
+          
         </div>
     </div>
     <div class="navbar-container container-fluid">
@@ -121,8 +121,9 @@
 
         <!-- End Navbar Toolbar Right -->
         <div class="navbar-brand navbar-brand-center">
-          <a [routerLink]="['']">
-            <img class="navbar-brand-logo" src="/assets/images/logo.png" title="Remark">
+          <a class="logoLink"[routerLink]="['']">
+            <img class="navbar-brand-logo" src="/assets/images/logo.png" title="Dayvulge">
+            <span class="navbar-brand-text"> Dayvulge</span>
           </a>
         </div>
         <button *ngIf="!currentUser" (click)="openLoginModal()" type="button" class="loginButton btn btn-link navbar-right navbar-btn">
@@ -193,7 +194,7 @@
 </div>
 <!-- Footer -->
 <footer class="site-footer appFooter">
-  <div class="site-footer-legal">© 2017 <a href="http://themeforest.net/item/remark-responsive-bootstrap-admin-template/11989202">Remark</a></div>
+  <div class="site-footer-legal">© 2017 <a href="http://themeforest.net/item/remark-responsive-bootstrap-admin-template/11989202">Dayvulge</a></div>
   <div class="site-footer-right">
     <a [routerLink]="['about']">About</a> Crafted with <i class="red-600 icon md-favorite"></i> by <a href="http://themeforest.net/user/amazingSurge">amazingSurge</a>
   </div>
