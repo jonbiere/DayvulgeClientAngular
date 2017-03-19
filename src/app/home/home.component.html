@@ -31,7 +31,8 @@
           <table *ngIf="!showSpinner" class="table table-hover">
             <thead>
               <tr>
-                <th>Vulge</th>
+                <th></th>
+                <th>Vulge</th>               
                 <th>User</th>
                 <th>Votes</th>
               </tr>
@@ -39,8 +40,9 @@
             <tbody class="vulgeTable">
               <tr *ngFor="let vulge of vulgeCollection | async | reverse">
                 <!--<td>{{vulge | json}}</td>-->
-                <td>{{vulge.vulgeText}}</td>
+                <td><img class="vulgePhoto" [src]="vulge.photoURL"/></td>
                 <td>{{vulge.userName}}</td>
+                <td>{{vulge.vulgeText}}</td>               
                 <td class="voteCell">
                   {{vulge.votes}}
                 </td>

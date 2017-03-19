@@ -75,7 +75,9 @@ export class AppComponent {
         });
         let updateObj = {};
         dirtyItems.forEach(item => {
-          updateObj[item.$key] = { hasSeen: true };
+          //TODO: do we want to null these out instead?
+          item.hasSeen = true;
+          updateObj[item.$key] = item;//{ hasSeen: true };
         });
         this.af.database.object(`/userObjs/userNotifications/${this.currentUser.uid}`).update(updateObj);
       }

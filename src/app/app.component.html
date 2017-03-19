@@ -78,7 +78,7 @@
               <i class="icon md-notifications" aria-hidden="true"></i>
               <span class="badge badge-pill badge-danger up">{{(currentUserNotifications | async | notificationFilter)?.length}}</span>
             </button>
-              <div class="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
+              <div class="dropdown-menu dropdown-menu-right dropdown-menu-media notificationsMenu" role="menu">
                 <div class="dropdown-menu-header">
                   <h5>NOTIFICATIONS</h5>
                   <span class="badge badge-round badge-danger">New {{(currentUserNotifications | async | notificationFilter)?.length}}</span>

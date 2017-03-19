@@ -5,6 +5,13 @@
             text-align: left;
             vertical-align: middle;
         }
+        .vulgePhoto{
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            height:40px;
+            width: 40px;
+            background-color: #dfdfdf;
+        }
         .voteCell{
             min-width: 100px;
             text-align: center;

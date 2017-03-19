@@ -37,6 +37,14 @@ body{
        // padding: 8px;
        }       
     }
+
+    .notificationsMenu{
+        width:700px;
+        .media-body{
+            padding: 0px 10px;
+        }
+    }
+
     .dropdown-toggle::after{
         content: none;
     }
@@ -75,7 +83,7 @@ body{
         clear: both;
         position: relative;
         //z-index: 10;
-        height: 3em;
+        height: 37em;
         margin-top: -3em;
     }
     //hide logo text on phones

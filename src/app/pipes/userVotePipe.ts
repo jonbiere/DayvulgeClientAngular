@@ -9,7 +9,9 @@ export class UserVotePipe implements PipeTransform {
     
     transform(input: any): any {
         return Array.isArray(input)
-            ? input.map(item => {
+            ? input.filter(item => {
+                return !item.hasSeen;
+            }).map(item => {
                 item.occured = this.helperService.getDateDiffFromNow(item.voteDate)
                 return item;
             }).sort((a, b) => {

@@ -28,9 +28,10 @@ export class CreateVulgeComponent implements OnInit {
         this.firebaseRefService.getCurrentVulgeCollection().then(vulgeCollection => {
             if (vulgeCollection) {
                 this.vulgeModel.userKey = this.currentUser.uid;
-                this.vulgeModel.userName = this.currentUser.email;
+                this.vulgeModel.userName = this.currentUser.displayName;
                 this.vulgeModel.createdDate = firebase.database['ServerValue']['TIMESTAMP'];
-
+                this.vulgeModel.photoURL = this.currentUser.photoURL;
+                
                 //todo this is not secure. Possible handle votes with application user.
                 this.vulgeModel.votes = 0;
 

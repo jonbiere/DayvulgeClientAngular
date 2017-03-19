@@ -6,6 +6,7 @@ export class Vulge {
     vulgeText: string;
     createdDate: Object;
     votes: number;
+    photoURL:string;
     constructor() {
     }
 }
