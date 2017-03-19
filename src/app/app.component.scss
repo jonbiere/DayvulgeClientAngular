@@ -19,7 +19,9 @@ body{
     }
 }
 .appContainer{
-
+    .navbar-container{
+        max-width: 1400px;
+    }
     .profilePhotoCircle{     
         padding-top: 1rem;
         padding-bottom: 1rem;
