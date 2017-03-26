@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as toastrObj from 'toastr';
+import { ErrorCodeService, ErrorCodes } from './errorcode.service';
+
 @Injectable()
 export class ToasterService {
     toastrOptions: ToastrOptions;
     toastr: Toastr
-    constructor() {
+    constructor(public errorCodeService: ErrorCodeService) {
         this.toastr = toastrObj;
         this.toastrOptions = {
             closeButton: false,
@@ -30,7 +32,8 @@ export class ToasterService {
         this.toastr.info(message)
     }
         //toastr.options = 
-    warning(message){
+    warning(errorCode:ErrorCodes, messageText?:string){
+         let message = messageText || this.errorCodeService.getErrorMessage(errorCode);
         this.toastr.warning(message);
     }
 
@@ -38,7 +41,8 @@ export class ToasterService {
         this.toastr.success(message, title);
     }
 
-    error(message){
+    error(errorCode:ErrorCodes, messageText?:string){
+        let message = messageText || this.errorCodeService.getErrorMessage(errorCode);
         this.toastr.error(message);
     }
 

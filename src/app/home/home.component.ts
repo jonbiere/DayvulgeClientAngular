@@ -3,6 +3,7 @@ import { AngularFire, FirebaseAuthState, FirebaseListObservable } from 'angularf
 import { AuthenticationService, FirebaseRefService, ToasterService, ErrorCodeService, ErrorCodes, VulgeService } from '../services/';
 import { UserVote, Vulge, Notification, NotificationType } from '../viewModels';
 import { Subscription } from 'rxjs';
+import {VulgeCollectionSettingsModel,VulgeCollectionSortByOptions} from '../viewModels'
 import * as firebase from 'firebase';
 
 
@@ -13,30 +14,38 @@ import * as firebase from 'firebase';
 })
 export class HomeComponent {
   currentUser: firebase.User;
-  vulgeCollection: FirebaseListObservable<any>;
-  showSpinner: boolean;
+  vulgeCollection: FirebaseListObservable<any>; 
   activeWinner: any;
   listeners: Array<Subscription>;
+  vulgeCollectionSub: Subscription;
+  collectionIsEmpty: boolean;
+  showSpinner: boolean;
+  settingsModel: VulgeCollectionSettingsModel;
   constructor(public authService: AuthenticationService, public af: AngularFire, public firebaseRefService: FirebaseRefService, public toastr: ToasterService, public errorCodeService:ErrorCodeService, public vulgeService:VulgeService) {
-  }
-
-  ngOnInit() {
     this.showSpinner = true;
     this.listeners = [];
+    this.settingsModel = vulgeService.getCollectionSettings();
+  }
+
+  ngOnInit() {  
     this.listeners.push(this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
     }));
 
     this.activeWinner = this.firebaseRefService.getActiveVulgeWinner();
     this.firebaseRefService.getCurrentVulgeCollection().then(vulgeCollection => {
-      this.vulgeCollection = vulgeCollection;
+      this.vulgeCollection = vulgeCollection;    
       if (this.vulgeCollection) {
-        this.listeners.push(this.vulgeCollection.subscribe(data => {
-          //this gets called anytime the list changes in anyway. So alot.
+        this.vulgeCollectionSub = this.vulgeCollection.subscribe(data => {
+          //this gets called anytime the list changes in anyway.
           if (data) {
             this.showSpinner = false;
+            if(!data.length){
+              this.collectionIsEmpty = true;
+            }
           }
-        }));
+        })
+        this.listeners.push(this.vulgeCollectionSub);
       }
     })
   }
@@ -59,19 +68,23 @@ export class HomeComponent {
               if(res && res.success){
 
               }else{
-                this.toastr.error(this.errorCodeService.getErrorMessage(ErrorCodes.voting_period_expired))
+                this.toastr.error(ErrorCodes.voting_period_expired)
               }
             })
           });
         }
         else {
-          this.toastr.warning(this.errorCodeService.getErrorMessage(ErrorCodes.user_no_votes));
+          this.toastr.warning(ErrorCodes.user_no_votes);
         }
       });
     }
     else {
-      this.toastr.warning(this.errorCodeService.getErrorMessage(ErrorCodes.user_create_account_to_vote));
+      this.toastr.warning(ErrorCodes.user_create_account_to_vote);
     }
+  }
+
+  toggleRealTime(){
+    console.log("toggleRealTime");
   }
 
   showMore() {

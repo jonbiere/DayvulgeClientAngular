@@ -1,0 +1,45 @@
+<nav class="panel-action vulgePagination">
+    <ul class="pagination pagination-no-border pagination-sm">
+        <li class="page-item">
+            <a class="page-link" href="javascript:void(0)">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <li class="active page-item">
+            <a class="page-link" href="javascript:void(0)">1</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="javascript:void(0)">2</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="javascript:void(0)">3</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="javascript:void(0)">4</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="javascript:void(0)">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div #vulgeSettingsElement ngbDropdown #dropDownObj="ngbDropdown" [autoClose]="false" [up]="true"  class="panel-action vulgeSettings">
+    <span ngbDropdownToggle class="dropdown-toggle panel-action" aria-expanded="false"><i class="icon md-settings" aria-hidden="true"></i></span>
+
+    <div class="dropdown-menu" aria-labelledby="exampleDefaultDropdownSubMenu" role="menu">
+        <div role="menuitem" class="dropdown-item realTimeMenuItem">
+            <span class="realTimeText">Enable Realtime</span>
+            <ui-switch class="realTimeSwitch" [(ngModel)]="settingsModel.enableRealTime" size="small" (change)="toggleRealTime()"></ui-switch>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div #sortByDropDown="ngbDropdown" ngbDropdown ngbDropdownToggle [autoClose]="true" class="dropdown-submenu sortBySelect">
+            <button role="menuitem" type="button" class="dropdown-item btn btn-link sortBySelectButton"><span>Sort By: </span><span>{{settingsModel.sortBy}}</span></button>
+            
+            <div class="dropdown-menu" role="menu">
+                <div *ngFor="let option of settingsModel.sortByOption" (click)="setSortBy(option);" [ngClass]="{'active': settingsModel.sortBy === option}" class="dropdown-item" role="menuitem" tabindex="-1">{{option}}</div>            
+            </div>
+        </div>
+</div>

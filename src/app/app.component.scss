@@ -19,6 +19,7 @@ body{
     }
 }
 .appContainer{
+
     .navbar-container{
         max-width: 1400px;  
         .logoLink{
@@ -91,10 +92,17 @@ body{
         height: 37em;
         margin-top: -3em;
     }
-    //hide logo text on phones
+
+    //mobile only breakpont
     @include media-breakpoint-down(xs){
         .navbar-brand-text{
             display: none !important;
+        }
+        .site-menubar{
+            .site-menu{
+                overflow-y: scroll;
+                -webkit-overflow-scrolling:touch;
+            }    
         }
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { AuthenticationService } from '../../services';
+import { AuthenticationService, ToasterService} from '../../services';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -31,8 +31,7 @@ export class LoginComponent implements OnInit {
                 this.toggleSpinner(false);
                 this.activeModal.close();
             }
-        }, error => {
-            this.errorMessage = error.message; 
+        },  error => {                        
             this.toggleSpinner(false);
         });
     }

@@ -18,14 +18,13 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { HomeComponent } from './home';
+import { HomeComponent, VulgeCollectionSettingsComponent } from './home';
 import { AboutComponent } from './about';
 import { ProfileComponent } from './profile';
 import { TimelineComponent } from './timeline';
 import { NoContentComponent } from './no-content';
-import { CountdownComponent } from './countdown';
+import {CountdownComponent, SpinnerComponent, UiSwitchComponent} from './tools';
 import { LoginComponent, EqualValidator, CreateVulgeComponent} from './modals';
-import { SpinnerComponent } from './spinner/spinner.component';
 import { ReversePipe, NotificationPipe, UserVotePipe} from './pipes';
 
 //Services
@@ -72,6 +71,7 @@ type StoreType = {
     AppComponent,
     AboutComponent,
     HomeComponent,
+    VulgeCollectionSettingsComponent,
     ProfileComponent,
     TimelineComponent,
     NoContentComponent,
@@ -79,6 +79,7 @@ type StoreType = {
     LoginComponent,   
     EqualValidator,
     SpinnerComponent,
+    UiSwitchComponent,
     CreateVulgeComponent,
     CountdownComponent,
     ReversePipe,

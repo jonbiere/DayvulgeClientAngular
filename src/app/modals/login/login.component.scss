@@ -129,6 +129,15 @@
 }
 @include media-breakpoint-down(xs){
 .page-login-main {
+    .spinnerActive{
+        opacity: .3;
+        .loginSpinner{       
+                position: absolute;
+            top: 3em;
+            right: 3em;
+            opacity: 1;
+        }
+    }
     .loginForm{
         .social {
             button{

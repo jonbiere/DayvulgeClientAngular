@@ -62,13 +62,19 @@ export class AuthenticationService {
             return this.af.auth.login({
                 provider: authProvider,
                 method: authMethod
+            }).catch(error =>{
+                this.toastr.error(ErrorCodes[(error as any).code as string]);
+                throw error;
             });
         }
         else {
             return this.af.auth.login(loginModel, {
                 provider: authProvider,
                 method: authMethod
-            });
+            }).catch(error =>{
+                this.toastr.error(ErrorCodes[(error as any).code as string]); 
+                throw error;
+            });;
         }
 
 
@@ -125,22 +131,22 @@ export class AuthenticationService {
                     }, error => {
                         let e = error as any;
                         let code: string = e.code || 'auth/internal-error'
-                        this.toastr.error(this.errorCodeService.getErrorMessage(ErrorCodes[code]));
+                        this.toastr.error(ErrorCodes[code]);
                         result.next(false);
                     });
                 }
                 else {
                     result.next(false);
-                    this.toastr.error(this.errorCodeService.getErrorMessage(ErrorCodes['auth/wrong-auth-provider']));
+                    this.toastr.error(ErrorCodes['auth/wrong-auth-provider']);
                 }
             }
             else {
                 result.next(false);
-                this.toastr.error(this.errorCodeService.getErrorMessage(ErrorCodes['auth/user-not-found']));
+                this.toastr.error(ErrorCodes.reset_user_not_found);
             }
         },
             error => {
-                this.toastr.error(error.message);
+                this.toastr.error(ErrorCodes.internal_error);
                 result.next(false);
             }
         );
