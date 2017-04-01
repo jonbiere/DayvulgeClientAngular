@@ -20,64 +20,51 @@
     </div>
     <div class="row">
       <div class="offset-md-2 col-md-8 countdownTimer">
-       <span> Voting period ends in: <countdown ></countdown></span>
-      </div>    
+        <span> Voting period ends in: <countdown ></countdown></span>
+      </div>
     </div>
     <div class="row">
       <div class="offset-md-1 col-md-10 offset-md-1">
-          <div class="panel">
-            <div class="panel-heading">
-              <h3 class="panel-title">Panel With Pagination</h3>
-              <div class="panel-actions">                           
-                <vulge-collection-settings (changePage)="changePage($event)" [settingsModel]="settingsModel" ></vulge-collection-settings>
-              </div>
-            </div>
-            <div class="panel-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
-                Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-                Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris
-                massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-              </p>
+        <div class="panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{dateHeader}}</h3>
+            <div class="panel-actions">
+              <vulge-collection-settings (changePage)="changePage($event)" [settingsModel]="settingsModel"></vulge-collection-settings>
             </div>
           </div>
+          <div class="panel-body">
+            <spinner *ngIf="showSpinner" class="vulgeSpinner"></spinner>
+            <table  class="table table-hover">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th></th>
+                  <th>Vulge</th>
+                  <th>Votes</th>
+                </tr>
+              </thead>
+              <tbody class="vulgeTable">
+                <tr *ngFor="let vulge of vulgeCollection">
+                  <!--<td>{{vulge | json}}</td>-->
+                  <td><img class="vulgePhoto" [src]="vulge.photoURL" /></td>
+                  <td>{{vulge.userName}}</td>
+                  <td>{{vulge.vulgeText}}</td>
+                  <td class="voteCell">
+                    {{(vulge.voteOrder * -1)}}
+                  </td>
+                  <td>
+                    <div class="voteButtons">
+                      <i (click)="vote(vulge.$key, true)" class="icon fa-arrow-circle-up" aria-hidden="true"></i>
+                      <i (click)="vote(vulge.$key, false)" class="icon fa-arrow-circle-down" aria-hidden="true"></i>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <!-- End Page -->
-
-<!--Table implmentation -->
-  <div class="card card-shadow">
-          <div class="card-block">
-          <spinner *ngIf="showSpinner" class="vulgeSpinner"></spinner>
-          <table *ngIf="!showSpinner" class="table table-hover">
-            <thead>
-              <tr>
-                <th>User</th>                       
-                <th></th>
-                 <th>Vulge</th>      
-                <th>Votes</th>
-              </tr>
-            </thead>
-            <tbody class="vulgeTable">
-              <tr *ngFor="let vulge of vulgeCollection">
-                <!--<td>{{vulge | json}}</td>-->
-                <td><img class="vulgePhoto" [src]="vulge.photoURL"/></td>
-                <td>{{vulge.userName}}</td>
-                <td>{{vulge.vulgeText}}</td>               
-                <td class="voteCell">
-                  {{(vulge.voteOrder * -1)}}
-                </td>
-                <td>
-                  <div class="voteButtons">
-                    <i (click)="vote(vulge.$key, true)" class="icon fa-arrow-circle-up" aria-hidden="true"></i>
-                    <i (click)="vote(vulge.$key, false)" class="icon fa-arrow-circle-down" aria-hidden="true"></i>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          </div>
-        </div>

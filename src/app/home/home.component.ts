@@ -4,6 +4,7 @@ import { AuthenticationService, FirebaseRefService, ToasterService, ErrorCodeSer
 import { UserVoteModel, VulgeModel, NotificationModel, NotificationType, CursorModel, VulgeCollectionSettingsModel, VulgeCollectionSortByOptions } from '../viewModels';
 import { Subscription } from 'rxjs';
 import * as firebase from 'firebase';
+import * as moment from 'moment';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class HomeComponent {
   collectionIsEmpty: boolean;
   showSpinner: boolean;
   settingsModel: VulgeCollectionSettingsModel;
+  dateHeader:string;
   constructor(public authService: AuthenticationService, public af: AngularFire, public firebaseRefService: FirebaseRefService, public toastr: ToasterService, public errorCodeService: ErrorCodeService, public vulgeService: VulgeService) {
     this.showSpinner = true;
     this.listeners = [];
@@ -27,6 +29,7 @@ export class HomeComponent {
   }
 
   ngOnInit() {
+    this.dateHeader = moment().format('MMMM Do, YYYY');
     this.listeners.push(this.authService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
     }));
