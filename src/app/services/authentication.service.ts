@@ -5,7 +5,7 @@ import { ToasterService } from './toastr.service';
 import { FirebaseRefService } from './firebaseRef.service';
 import { ErrorCodeService, ErrorCodes } from './errorcode.service'
 import { HelperService } from './helper.service';
-import { Profile } from '../viewModels';
+import { ProfileModel } from '../viewModels';
 import { AppSettings } from '../appSettings';
 import * as firebase from 'firebase';
 
@@ -24,13 +24,11 @@ export class AuthenticationService {
                     this.currentuser.next(null);
                     this.toastr.info(`Pleave verify your account to continue. An email has been sent to ${authState.auth.email}`);
                 }
-                else {
-                    //jQuery('#loginModal').modal('hide');
+                else {                 
                     this.currentuser.next(authState.auth);
                 }
             }
-            else {
-                //jQuery('#loginModal').modal('hide');
+            else {            
                 this.createUserProfileIfNeeded(authState);
                 this.currentuser.next(authState.auth);
 
@@ -89,13 +87,15 @@ export class AuthenticationService {
             this.createUserProfileIfNeeded(authState);
         }));
     }
-
+    
+    //todo this should be handled on the server
     createUserProfileIfNeeded(authState: FirebaseAuthState) {
         let user = authState.auth;
         this.firebaseRefService.getCurrentUserProfile(user.uid, false).take(1).subscribe(userProfile => {
             //set dayvulge user profile
             if (!userProfile.$exists()) {
-                let newPofile = new Profile(user.email, firebase.database['ServerValue']['TIMESTAMP'], AppSettings.VotesPerDay);
+                
+                let newPofile = new ProfileModel(user.email, firebase.database['ServerValue']['TIMESTAMP'], AppSettings.VotesPerDay);
                 this.firebaseRefService.getCurrentUserProfile(user.uid, false).set(newPofile);
             }
             //set firebase user profile

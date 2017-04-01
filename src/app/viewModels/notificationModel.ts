@@ -1,4 +1,4 @@
-export class Notification {
+export class NotificationModel {
     notifyUser:string;
     createdBy: string;
     message:string;

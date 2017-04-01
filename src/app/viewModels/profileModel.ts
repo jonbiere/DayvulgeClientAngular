@@ -1,4 +1,4 @@
-export class Profile {
+export class ProfileModel {
     email: string;
     createdDate: Object;
     votes: number;

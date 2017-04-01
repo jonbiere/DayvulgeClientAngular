@@ -8,7 +8,6 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 import { AngularFireModule } from 'angularfire2';
 
 
-
 /*
  * Platform and Environment providers/directives/pipes
  */

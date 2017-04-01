@@ -29,7 +29,7 @@
             <div class="panel-heading">
               <h3 class="panel-title">Panel With Pagination</h3>
               <div class="panel-actions">                           
-                <vulge-collection-settings [settingsModel]="settingsModel" ></vulge-collection-settings>
+                <vulge-collection-settings (changePage)="changePage($event)" [settingsModel]="settingsModel" ></vulge-collection-settings>
               </div>
             </div>
             <div class="panel-body">
@@ -49,7 +49,7 @@
 <!-- End Page -->
 
 <!--Table implmentation -->
-  <div *ngIf="false" class="card card-shadow">
+  <div class="card card-shadow">
           <div class="card-block">
           <spinner *ngIf="showSpinner" class="vulgeSpinner"></spinner>
           <table *ngIf="!showSpinner" class="table table-hover">
@@ -62,13 +62,13 @@
               </tr>
             </thead>
             <tbody class="vulgeTable">
-              <tr *ngFor="let vulge of vulgeCollection | async | reverse">
+              <tr *ngFor="let vulge of vulgeCollection">
                 <!--<td>{{vulge | json}}</td>-->
                 <td><img class="vulgePhoto" [src]="vulge.photoURL"/></td>
                 <td>{{vulge.userName}}</td>
                 <td>{{vulge.vulgeText}}</td>               
                 <td class="voteCell">
-                  {{vulge.votes}}
+                  {{(vulge.voteOrder * -1)}}
                 </td>
                 <td>
                   <div class="voteButtons">

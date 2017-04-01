@@ -6,15 +6,14 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {VulgeCollectionSettingsModel,VulgeCollectionSortByOptions} from '../viewModels';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
+import { AppSettings } from '../appSettings';
 
 @Injectable()
 export class VulgeService {
     private settingsModel:VulgeCollectionSettingsModel;
     private readonly path: string;
     constructor(public af: AngularFire, public toastr: ToasterService, private http: Http) {
-        //this.path = 'http://localhost:3001/api/vote';
-        //this.path = 'http://dayvulgeserver-dev.taii6mwqn2.us-east-2.elasticbeanstalk.com/api/vote';
-        this.path = 'https://dev.api.dayvulge.com/api/vote';
+        this.path = `${AppSettings.API_BaseUrl}/api/vote`;       
         this.settingsModel = new VulgeCollectionSettingsModel();
     }
     public vote(vulgeKey: string, up: boolean): firebase.Promise_Instance<Observable<any>> {

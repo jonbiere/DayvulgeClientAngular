@@ -1,11 +1,13 @@
 import { TimeStamp } from 'System';
 
-export class Vulge {
+export class VulgeModel {
     userKey: string;
     userName: string;
     vulgeText: string;
     createdDate: Object;
-    votes: number;
+    upVotes: number;
+    downVotes:number;
+    voteOrder:number;
     photoURL:string;
     constructor() {
     }

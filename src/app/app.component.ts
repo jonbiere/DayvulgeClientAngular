@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFire, FirebaseAuthState, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { AuthenticationService, FirebaseRefService, HelperService } from './services';
-import { Profile } from './viewModels';
+import { ProfileModel } from './viewModels';
 import { LoginComponent, CreateVulgeComponent } from './modals';
 
 

@@ -1,4 +1,4 @@
-export class UserVote {
+export class UserVoteModel {
     vulgeUserName: string;
     profilePic: string;
     vulgeText: string;

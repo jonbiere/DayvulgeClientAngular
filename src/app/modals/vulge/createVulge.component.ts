@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFire } from 'angularfire2'
 import { AuthenticationService, FirebaseRefService } from '../../services'
-import { Vulge } from '../../viewModels'
+import { VulgeModel } from '../../viewModels'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as firebase from 'firebase'
 
@@ -11,9 +11,9 @@ import * as firebase from 'firebase'
 })
 export class CreateVulgeComponent implements OnInit {
     currentUser: firebase.User = null;
-    vulgeModel: Vulge;
+    vulgeModel: VulgeModel;
     constructor(public af: AngularFire, public authService: AuthenticationService, public firebaseRefService: FirebaseRefService, public activeModal: NgbActiveModal) {
-        this.vulgeModel = new Vulge();
+        this.vulgeModel = new VulgeModel();
     }
 
     ngOnInit() {
@@ -33,7 +33,9 @@ export class CreateVulgeComponent implements OnInit {
                 this.vulgeModel.photoURL = this.currentUser.photoURL;
                 
                 //todo this is not secure. Possible handle votes with application user.
-                this.vulgeModel.votes = 0;
+                this.vulgeModel.upVotes = 0;
+                this.vulgeModel.downVotes = 0;
+                this.vulgeModel.voteOrder = 0;
 
                 vulgeCollection.push(this.vulgeModel).then(result => {
 

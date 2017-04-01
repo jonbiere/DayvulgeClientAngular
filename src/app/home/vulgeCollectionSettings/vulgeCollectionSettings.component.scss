@@ -1,8 +1,17 @@
+@import "../../styles/vars";
 .vulgePagination{
     margin-right:10em;
 }
 .vulgeSettings{
-   
+    .vulgePagination{
+        .page-item{
+           .page-link:active{
+                color: #fff;
+                background-color: $color-primary-500;
+           } 
+        }
+    }
+  
     .realTimeMenuItem{
         &:hover{
          background-color:white;

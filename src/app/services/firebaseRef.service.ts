@@ -1,33 +1,38 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { CursorModel, VulgeCollectionMetaModel } from '../viewModels';
 import { Subscription, Observable } from 'rxjs';
+
 @Injectable()
 export class FirebaseRefService {
     private listners: Array<Subscription>;
-    private currentVulgeCollectionKey: string;
+    private currentVulgeCollectionMetaData: VulgeCollectionMetaModel;
 
     constructor(public af: AngularFire) {
         this.listners = [];
         this.listners.push(this.af.database.object('/activeCollection').subscribe(activeCollection => {
             if (activeCollection.$exists()) {
-                this.currentVulgeCollectionKey = Object.keys(activeCollection)[0];
+                let key = Object.keys(activeCollection)[0];
+                this.currentVulgeCollectionMetaData = new VulgeCollectionMetaModel(key, activeCollection[key]);
             }
             else {
-                this.currentVulgeCollectionKey = null;
+                this.currentVulgeCollectionMetaData = null;
             }
         }))
     }
 
 
-    getCurrentVulgeCollectionKey(): Promise<string> {
-        if (this.currentVulgeCollectionKey) {
-            return Promise.resolve(this.currentVulgeCollectionKey);
+    getCurrentVulgeCollectionMetaData(): Promise<VulgeCollectionMetaModel> {
+        if (this.currentVulgeCollectionMetaData) {
+            return Promise.resolve(this.currentVulgeCollectionMetaData);
         }
         else {
             //Go try and get it again in case of unlikely race condition.
             return this.af.database.object('/activeCollection').take(1).toPromise().then(activeCollection => {
                 if (activeCollection.$exists()) {
-                    return Object.keys(activeCollection)[0]
+                    let key = Object.keys(activeCollection)[0];
+                    this.currentVulgeCollectionMetaData = new VulgeCollectionMetaModel(key, activeCollection[key]);
+                    return  this.currentVulgeCollectionMetaData;
                 }
                 else {
                     return null;
@@ -36,15 +41,40 @@ export class FirebaseRefService {
         }
     }
 
-    getCurrentVulgeCollection(): Promise<FirebaseListObservable<any>> {
+    getCurrentVulgeCollectionCount():Promise<FirebaseObjectObservable<any>>{
+        return this.getCurrentVulgeCollectionMetaData().then(metaData =>{
+            if (metaData && metaData.key) {
+                return this.af.database.object(`/activeCollection/${metaData.key}`);
+            }
+        })
+         
+    }
+
+    getCurrentVulgeCollection(pageSize?:number, cursor?:CursorModel): Promise<FirebaseListObservable<any>> {
         //TODO determine if we want ActiveVulgeCollection be observable or promise.
-        return this.getCurrentVulgeCollectionKey().then(collectionKey => {
-            if (collectionKey) {
-                return this.af.database.list(`/vulgeCollections/${collectionKey}/vulges`, { query: { orderByChild: 'votes', limitToLast: 25 } });
+        return this.getCurrentVulgeCollectionMetaData().then(metaData => {
+            let queryObj = { query: cursor ? {orderByChild: 'voteOrder', limitToFirst: pageSize? (pageSize+1):25, startAt: {value:cursor.value, key: cursor.key}} : { orderByChild: 'voteOrder', limitToFirst: pageSize ? (pageSize+1):25 } }
+            if (metaData && metaData.key) {
+                return this.af.database.list(`/vulgeCollections/${metaData.key}/vulges`, queryObj);
             }
         });
-
     }
+
+    // getCurrentVulgeCollectionOld(pageSize?:number, cursor?:CursorModel):Promise<firebase.database.Query>{
+    //     return this.getCurrentVulgeCollectionMetaData().then(metaData => {
+    //         if (metaData && metaData.key) {
+    //             //return this.af.database.list(`/vulgeCollections/${metaData.key}/vulges`, queryObj);
+    //             if(cursor){
+    //                 return firebase.database().ref(`/vulgeCollections/${metaData.key}/vulges`).limitToLast(pageSize||25).endAt(null, cursor.key);
+    //             }
+    //             else{
+    //                 return firebase.database().ref(`/vulgeCollections/${metaData.key}/vulges`).limitToLast(pageSize||25);
+    //             }
+    //         }
+    //     });
+    // }
+
+
     getActiveVulgeWinner(): FirebaseObjectObservable<any> {
         return this.af.database.object('/activeWinner');
     }
@@ -65,9 +95,9 @@ export class FirebaseRefService {
     }
 
     getVulgeByKey(vulgeKey: string, preserveSnapshot: boolean): Promise<FirebaseObjectObservable<any>> {
-        return this.getCurrentVulgeCollectionKey().then(collectionKey => {
-            if (collectionKey) {
-                return this.af.database.object(`/vulgeCollections/${collectionKey}/vulges/${vulgeKey}`, { preserveSnapshot: preserveSnapshot });
+        return this.getCurrentVulgeCollectionMetaData().then(metaData => {
+            if (metaData && metaData.key) {
+                return this.af.database.object(`/vulgeCollections/${metaData.key}/vulges/${vulgeKey}`, { preserveSnapshot: preserveSnapshot });
             }
         });
 

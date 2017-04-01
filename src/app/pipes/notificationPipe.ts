@@ -1,5 +1,5 @@
 import { PipeTransform, Pipe } from '@angular/core';
-import { NotificationType, Notification } from '../viewModels'
+import { NotificationType, NotificationModel } from '../viewModels'
 import { HelperService } from '../services';
 @Pipe({ name: 'notificationFilter' })
 export class NotificationPipe implements PipeTransform {
