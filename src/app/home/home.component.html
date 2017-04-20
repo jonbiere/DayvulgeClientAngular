@@ -33,34 +33,29 @@
             </div>
           </div>
           <div class="panel-body">
-            <spinner *ngIf="showSpinner" class="vulgeSpinner"></spinner>
-            <table  class="table table-hover">
-              <thead>
-                <tr>
-                  <th>User</th>
-                  <th></th>
-                  <th>Vulge</th>
-                  <th>Votes</th>
-                </tr>
-              </thead>
-              <tbody class="vulgeTable">
-                <tr *ngFor="let vulge of vulgeCollection">
-                  <!--<td>{{vulge | json}}</td>-->
-                  <td><img class="vulgePhoto" [src]="vulge.photoURL" /></td>
-                  <td>{{vulge.userName}}</td>
-                  <td>{{vulge.vulgeText}}</td>
-                  <td class="voteCell">
-                    {{(vulge.voteOrder * -1)}}
-                  </td>
-                  <td>
-                    <div class="voteButtons">
-                      <i (click)="vote(vulge.$key, true)" class="icon fa-arrow-circle-up" aria-hidden="true"></i>
-                      <i (click)="vote(vulge.$key, false)" class="icon fa-arrow-circle-down" aria-hidden="true"></i>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="row">
+              <spinner *ngIf="showSpinner" size="lg" class="offset-md-5 col-md-2 vulgeSpinner"></spinner>
+            </div>
+            <div class="row">
+            </div>
+            <div *ngIf="!showSpinner" class="vulgeTbl">
+              <div *ngFor="let vulge of vulgeCollection" class="row vulgeTblRow">
+                <div class="col-1 vulgeTblCell centerCell">
+                  <div class="voteButtons">
+                    <i (click)="vote(vulge.$key, true)" class="icon fa-arrow-circle-up" aria-hidden="true"></i>
+                    <div class="voteOrder">{{(vulge.voteOrder * -1)}}</div>
+                    <i (click)="vote(vulge.$key, false)" class="icon fa-arrow-circle-down" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <div class="col-2 vulgeTblCell centerCell">
+                  <img class="rounded vulgePhoto" [src]="vulge.photoURL" />
+                  <div class="userName">{{vulge.userName}}</div>              
+                </div>
+                <div class="col-9 vulgeTblCell">
+                  {{vulge.vulgeText}}
+                </div>               
+              </div>
+            </div>
           </div>
         </div>
       </div>

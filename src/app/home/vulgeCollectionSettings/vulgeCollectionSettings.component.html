@@ -1,13 +1,13 @@
 <div class="vulgeSettings">
 <nav class="panel-action vulgePagination">
-    <ul class="pagination pagination-gap pagination-sm">
+    <ul *ngIf="settingsModel.numPages > 1" class="pagination pagination-gap pagination-sm">
         <li class="page-item">
             <button (click)="previousPage()" class="page-link btn btn-link"  aria-label="Previous">
                 <i class="icon fa-arrow-left" aria-hidden="true"></i>
             </button>
         </li>
         <li>
-            <span>{{settingsModel.currentPage}}/{{settingsModel.numPages}}</span>
+            <span class="pageNumbers">{{settingsModel.currentPage}}/{{settingsModel.numPages}}</span>
         </li>
         <li  class="page-item">
             <button (click)="nextPage()" class="page-link btn btn-link" aria-label="Next">

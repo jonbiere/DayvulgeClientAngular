@@ -29,12 +29,12 @@ body{
     }
     .profilePhotoCircle{     
         padding-top: 1rem;
-        padding-bottom: 1rem;
-       img{ -webkit-border-radius: 50%;
-        border-radius: 50%;
+        padding-bottom: .6rem;
+       img{ -webkit-border-radius:  0.215rem;
         height:pxToRem(40px);
         width: pxToRem(40px);
         background-color: #dfdfdf;
+        border-radius: 0.215rem;
        // padding: 8px;
        }       
     }

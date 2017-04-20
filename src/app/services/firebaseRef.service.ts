@@ -53,7 +53,7 @@ export class FirebaseRefService {
     getCurrentVulgeCollection(pageSize?:number, cursor?:CursorModel): Promise<FirebaseListObservable<any>> {
         //TODO determine if we want ActiveVulgeCollection be observable or promise.
         return this.getCurrentVulgeCollectionMetaData().then(metaData => {
-            let queryObj = { query: cursor ? {orderByChild: 'voteOrder', limitToFirst: pageSize? (pageSize+1):25, startAt: {value:cursor.value, key: cursor.key}} : { orderByChild: 'voteOrder', limitToFirst: pageSize ? (pageSize+1):25 } }
+            let queryObj = { query: cursor ? {orderByChild: 'voteOrder', limitToFirst: pageSize ? (pageSize+1) : 25, startAt: {value:cursor.value, key: cursor.key}} : { orderByChild: 'voteOrder', limitToFirst: pageSize ? (pageSize+1):25 } }
             if (metaData && metaData.key) {
                 return this.af.database.list(`/vulgeCollections/${metaData.key}/vulges`, queryObj);
             }

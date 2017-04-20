@@ -63,7 +63,6 @@ export class HomeComponent {
   }
 
   getPage(cursor?: CursorModel) {
-    this.showSpinner = true;
     this.firebaseRefService.getCurrentVulgeCollection(this.settingsModel.pageSize, cursor).then(vulgeCollectionRef => {
       if (vulgeCollectionRef) {
         if (this.vulgeCollectionSub) {
@@ -88,12 +87,7 @@ export class HomeComponent {
           }
           this.showSpinner = false;
         };
-        if (this.settingsModel.enableRealTime) {
-          this.vulgeCollectionSub = vulgeCollectionRef.subscribe(vulgeResponse);
-        }
-        else {
-          this.vulgeCollectionSub = vulgeCollectionRef.take(1).subscribe(vulgeResponse);
-        }
+       this.vulgeCollectionSub = this.settingsModel.enableRealTime ? vulgeCollectionRef.subscribe(vulgeResponse) : vulgeCollectionRef.take(1).subscribe(vulgeResponse);          
        this.listeners.push(this.vulgeCollectionSub);
       }
     });

@@ -15,7 +15,7 @@ export class VulgeCollectionSettingsModel {
         VulgeCollectionSortByOptions[VulgeCollectionSortByOptions.Controversial], VulgeCollectionSortByOptions[VulgeCollectionSortByOptions.Newest]];
         this.pageCursors = [null];
         this.currentPage = 1;
-        this.pageSize = 25;
+        this.pageSize = 2;
     }
 }
 

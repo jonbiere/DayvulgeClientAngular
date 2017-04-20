@@ -2,17 +2,37 @@
     .countdownTimer{
         text-align: center;
     } 
-    .vulgeTable{
+    .vulgeTbl{
         color:black;
         td{
             text-align: left;
             vertical-align: middle;
         }
-        .vulgePhoto{
-            -webkit-border-radius: 50%;
-            border-radius: 50%;
-            height:40px;
-            width: 40px;
+        .vulgeTblRow{
+            border-top: 1px solid #e0e0e0;
+            &:hover {
+                background-color: #eeeeee;;
+            }
+            .vulgeTblCell{
+                padding: 0.572rem;
+            }
+            .centerCell{
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
+            .userName{
+                font-size: 10px;
+            }
+            .voteOrder{
+                padding-left: 3px;
+            }
+        }
+       
+        .vulgePhoto{          
+            height:54px;
+            width: 54px;
             background-color: #dfdfdf;
         }
         .voteCell{
@@ -26,19 +46,16 @@
                 //float:right;
                 .fa-arrow-circle-up{
                     cursor: pointer;
-                    font-size:24px;
+                    font-size:20px;
                 }
                 .fa-arrow-circle-down{
                     cursor: pointer;
-                    font-size:24px;
+                    font-size:20px;
                 }
             }
     }
-    .vulgeSpinner{
-            position: absolute;
-            top: -2em;
-            right: 31em;
-            opacity: 1;
+    .vulgeSpinner{          
+        opacity: 1;
     }
 
     .moreButton{
